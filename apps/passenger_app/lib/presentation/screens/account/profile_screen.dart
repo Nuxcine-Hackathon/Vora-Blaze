@@ -12,7 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ride_on/presentation/cubits/auth/user_authenticate_cubit.dart';
 
+import '../../../core/services/vora_guide_script.dart';
 import '../../../core/utils/common_widget.dart';
+import '../../widgets/vora_guide_button.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../cubits/auth/email_otp_cubit.dart';
 import '../../cubits/book_ride_cubit.dart';
@@ -76,6 +78,9 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
+      floatingActionButton: const VoraGuideButton(
+        scene: VoraGuideScene.profile,
+      ),
       appBar: CustomAppBarNew(
         title: "Edit Profile",
         onBackTap: () {

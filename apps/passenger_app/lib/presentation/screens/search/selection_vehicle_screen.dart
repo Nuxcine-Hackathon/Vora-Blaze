@@ -16,6 +16,8 @@ import '../../cubits/location/get_item_price_cubit.dart';
 import '../../cubits/location/get_nearby_drivers_cubit.dart';
 import '../../cubits/realtime/ride_request_cubit.dart';
 import '../../cubits/vehicle_data/get_vehicle_cetgegory_cubit.dart';
+import '../../../core/services/vora_guide_script.dart';
+import '../../widgets/vora_guide_button.dart';
 
 class SelectionVehicleScreen extends StatefulWidget {
   final Set<Polyline> polylines;
@@ -148,6 +150,9 @@ class _SelectionVehicleScreenState extends State<SelectionVehicleScreen> {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.white,
+        floatingActionButton: const VoraGuideButton(
+          scene: VoraGuideScene.estimate,
+        ),
         body:Stack(
           children: [
             SizedBox(

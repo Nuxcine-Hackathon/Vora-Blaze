@@ -17,12 +17,24 @@ import 'core/utils/theme/project_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    debugPrint("Firebase indisponible (démo locale) : $e");
+  }
   await Hive.initFlutter();
   await Hive.openBox('appBox');
   await Hive.openBox('lanBox');
-  await initializeNotifications();
-  await setupOneSignal();
+  try {
+    await initializeNotifications();
+  } catch (e) {
+    debugPrint("Notifications indisponibles : $e");
+  }
+  try {
+    await setupOneSignal();
+  } catch (e) {
+    debugPrint("OneSignal indisponible : $e");
+  }
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);

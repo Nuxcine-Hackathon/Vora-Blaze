@@ -14,6 +14,8 @@ import '../../cubits/auth/apple_login_cubit.dart';
 import '../../cubits/auth/google_login_cubit.dart';
 import '../../cubits/auth/login_cubit.dart';
 import '../../cubits/auth/user_authenticate_cubit.dart';
+import '../../../core/services/vora_guide_script.dart';
+import '../../widgets/brand_companion.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../Home/item_home_screen.dart';
 import 'google_update_screen.dart';
@@ -148,7 +150,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const SizedBox(height: 150),
+                                  const SizedBox(height: 72),
+                                  BrandCompanion.fromScene(
+                                    scene: VoraGuideScene.login,
+                                    size: 92,
+                                  ),
+                                  const SizedBox(height: 8),
                                   commonlyUserLogo(),
                                   const SizedBox(
                                     height: 10,

@@ -4,6 +4,7 @@ import 'package:ride_on_driver/core/utils/translate.dart';
 import '../../../core/utils/common_widget.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../../core/utils/theme/theme_style.dart';
+import '../../widgets/brand_companion.dart';
 import '../Splash/allow_location_screen.dart';
 
 class Onboardingscreen extends StatefulWidget {
@@ -62,6 +63,15 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
               left: 0,
               top: 0,
               child: SvgPicture.asset("assets/images/topEllipse.svg",)),
+          const Positioned(
+            top: 36,
+            right: 16,
+            child: BrandCompanion(
+              size: 72,
+              mood: BrandCompanionMood.trust,
+              showGlow: false,
+            ),
+          ),
 
           Positioned(
             left: 0,

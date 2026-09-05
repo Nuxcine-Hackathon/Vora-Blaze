@@ -10,7 +10,9 @@ import '../../../core/utils/theme/theme_style.dart';
 import '../../cubits/book_ride_cubit.dart';
 import '../../cubits/location/user_current_location_cubit.dart';
 
+import '../../../core/services/vora_guide_script.dart';
 import '../../widgets/menu_popup_widget.dart';
+import '../../widgets/vora_guide_button.dart';
 import 'loading_nearby_search_screen.dart';
 
 import 'package:geocoding/geocoding.dart';
@@ -51,6 +53,9 @@ class _UserSearchLocationState extends State<UserSearchLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const VoraGuideButton(
+        scene: VoraGuideScene.destination,
+      ),
       appBar: CustomAppBars(
         title: "",
         backgroundColor: notifires.getbgcolor,

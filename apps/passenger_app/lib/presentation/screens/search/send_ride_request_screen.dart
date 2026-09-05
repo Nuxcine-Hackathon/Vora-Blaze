@@ -18,6 +18,8 @@ import 'package:http/http.dart' as http;
 import 'package:ride_on/core/utils/translate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../core/services/config.dart';
+import '../../../core/services/vora_guide_script.dart';
+import '../../widgets/vora_guide_button.dart';
 import '../../../core/utils/common_widget.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../../core/utils/theme/theme_style.dart';
@@ -511,6 +513,9 @@ class _SendRideRequestScreenState extends State<SendRideRequestScreen> {
       },
       child: Scaffold(
         backgroundColor: notifires.getbgcolor,
+        floatingActionButton: const VoraGuideButton(
+          scene: VoraGuideScene.ride,
+        ),
         body: Stack(
           children: [
             _buildMapSection(),

@@ -13,6 +13,7 @@ import '../../../core/utils/theme/theme_style.dart';
 import '../../cubits/auth/login_cubit.dart';
 import '../../cubits/auth/user_authenticate_cubit.dart';
 import '../../cubits/logout_cubit.dart';
+import '../../widgets/brand_companion.dart';
 import '../../widgets/custom_text_form_field.dart';
 import 'otp_screen.dart';
 
@@ -113,7 +114,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(children: [
-                                  const SizedBox(height: 220),
+                                  const SizedBox(height: 96),
+                                  const BrandCompanion(
+                                    size: 88,
+                                    mood: BrandCompanionMood.welcome,
+                                  ),
+                                  const SizedBox(height: 8),
                                   commonlyUserLogo(),
                                   const SizedBox(
                                     height: 25,

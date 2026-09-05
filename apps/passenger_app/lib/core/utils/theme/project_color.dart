@@ -3,37 +3,61 @@
 import 'package:ride_on/core/services/data_store.dart';
 import 'package:flutter/material.dart';
 
-Color themeColor = const Color(0xffEF9F00); // OnTravel amber
-Color themeColor2 = const Color(0xff356F5F); // OnTravel teal
+/// Palette officielle — source unique pour les deux apps.
+/// Ne pas introduire d'autres couleurs de marque sans revue d'équipe.
+class BrandColors {
+  static const Color navy = Color(0xFF001341);
+  static const Color blue = Color(0xFF023ACF);
+  static const Color green = Color(0xFF309369);
+  static const Color navySoft = Color(0xFFE8EEF6);
+  static const Color blueSoft = Color(0xFFE6EDFF);
+  static const Color greenSoft = Color(0xFFE6F4EE);
+}
+
+Color contrastOnBrand(Color background, [Color? requested]) {
+  final isBrandFill = background == BrandColors.blue ||
+      background == BrandColors.navy ||
+      background == BrandColors.green;
+  if (isBrandFill &&
+      (requested == null ||
+          requested == BrandColors.navy ||
+          requested == Colors.black)) {
+    return const Color(0xFFFFFFFF);
+  }
+  return requested ?? BrandColors.navy;
+}
+
+Color themeColor = BrandColors.blue;
+Color themeColor2 = BrandColors.green;
 Color whiteColor = const Color(0xffFFFFFF);
-Color blackColor = const Color.fromARGB(255, 6, 6, 6);
-Color ginColor = const Color(0xFFE4EFE5);
+Color blackColor = BrandColors.navy;
+Color ginColor = BrandColors.greenSoft;
 Color bgcolor = whiteColor;
-Color darkblue = const Color(0xff3D5BF6);
-Color yelloColor = const Color(0xffEF9F00); // OnTravel amber
+Color darkblue = BrandColors.blue;
+Color yelloColor = BrandColors.blue;
 Color redColor = const Color(0xffFF4747);
 Color lightgrey = const Color(0xffDDDDDD);
 Color darkmode = const Color(0xff111315);
 Color boxcolor = const Color(0xff202427);
 Color greycolor2 = const Color(0xff9e9e9e);
 Color greycolor22 = const Color(0xffA7AEC1);
-Color perpulshadow = const Color(0xffede3ed);
-Color buttonColor = const Color(0xff6F42E5);
-Color blueColor = const Color(0xff2196f3);
-Color greenColor = const Color(0xff0d7e0d);
-Color gradientColor = const Color(0xff00D261);
-Color brownColor = const Color(0xff481f01);
-Color orangeColor = const Color(0xffff9933);
-Color lightyellow = const Color(0xffF6E3BD); // OnTravel amber tint
+Color perpulshadow = BrandColors.blueSoft;
+Color buttonColor = BrandColors.blue;
+Color blueColor = BrandColors.blue;
+Color greenColor = BrandColors.green;
+Color gradientColor = BrandColors.green;
+Color brownColor = BrandColors.navy;
+Color orangeColor = BrandColors.blue;
+Color lightyellow = BrandColors.navySoft;
 Color redgradient = const Color(0xffFF6B6B);
-Color yellowShadow = const Color(0xFFF6E3BD); // OnTravel amber tint
-Color greentext = const Color(0xff20BC3B);
-Color bordercolor = const Color(0xffF5F2FB);
-Color blackColor2 = const Color.fromARGB(255, 49, 15, 15);
+Color yellowShadow = BrandColors.blueSoft;
+Color greentext = BrandColors.green;
+Color bordercolor = BrandColors.navySoft;
+Color blackColor2 = BrandColors.navy;
 Color greyColor2 = const Color.fromARGB(255, 198, 202, 215);
 Color greyColor22 = const Color(0xffA7AEC1);
-Color darkblue2 = const Color(0xff3D5BF6);
-Color yelloColor2 = const Color(0xffFFBB0D);
+Color darkblue2 = BrandColors.blue;
+Color yelloColor2 = BrandColors.blue;
 Color redColor2 = const Color(0xffFF4747);
 Color lightgrey2 = const Color(0xffDDDDDD);
 Color lightBlack = const Color(0x73000000);
@@ -41,47 +65,47 @@ Color lightBlack2 = const Color(0XFF636777);
 Color onoffColor = const Color(0xffE7E7E7);
 Color onoffColor2 = const Color(0xffE7E7E7);
 Color fevAndSearchColor = const Color(0xFFf7f7f7);
-Color lightblue = const Color(0xFFccdbfd);
-Color greenColor2 = const Color(0xFF2a9d8f);
+Color lightblue = BrandColors.blueSoft;
+Color greenColor2 = BrandColors.green;
 Color lightGrey = const Color(0xFFbbbbbb);
-Color pinnetsColor = const Color.fromARGB(255, 248, 236, 217);
+Color pinnetsColor = BrandColors.navySoft;
 Color darkgrey = const Color(0xFFF6F4F4);
-Color darkbox = const Color(0xff2ec4b6);
-Color vehiclethemeColor = const Color(0xff78290f);
+Color darkbox = BrandColors.green;
+Color vehiclethemeColor = BrandColors.navy;
 Color bookablethemeColor = greenColor2;
-Color boatthemeColor = const Color(0xff48cae4);
-Color spacethemeColor = const Color(0xfff7a072);
-Color parkingthemeColor = const Color(0xff9d4edd);
-Color doctorthemeColor = const Color(0xff3461ec);
-Color lightBackColor = const Color(0xffe2eafc);
+Color boatthemeColor = BrandColors.blue;
+Color spacethemeColor = BrandColors.green;
+Color parkingthemeColor = BrandColors.navy;
+Color doctorthemeColor = BrandColors.blue;
+Color lightBackColor = BrandColors.blueSoft;
 Color baseColor = Colors.grey.shade300;
 Color highlight = Colors.grey.shade100;
 Color grey2 = const Color(0xFF616161);
-Color grey1 = const Color(0xFF212121);
+Color grey1 = BrandColors.navy;
 Color grey3 = const Color(0xFF9E9E9E);
 Color grey4 = const Color(0xFFBDBDBD);
 Color grey6 = const Color(0xFFF7F7F7);
 Color grey5 = const Color(0xFFEEEEEE);
-Color bgBlue = const Color(0xFFF6FAFD);
-Color fillColor = const Color(0xFF292B49);
-Color boatThemColor = const Color(0xFF41ADE9);
-Color parkingThemColor = const Color(0xFF8863D8);
-Color bookableThemColor = const Color(0xFFEDB037);
-Color spaceThemColor = const Color(0xFF005DB2);
+Color bgBlue = BrandColors.navySoft;
+Color fillColor = BrandColors.navy;
+Color boatThemColor = BrandColors.blue;
+Color parkingThemColor = BrandColors.navy;
+Color bookableThemColor = BrandColors.green;
+Color spaceThemColor = BrandColors.blue;
 Color bgRed = const Color(0xFFFFF5F5);
-Color bgYellow = const Color(0xFFFFFEE0);
-Color bgPurple = const Color(0xFFFCF4FF);
-Color acentColor = const Color(0xff7ADC7f);
-Color appyellow = const Color(0xFFFFD33C);
-Color appgreen = const Color.fromARGB(255, 10, 78, 19);
+Color bgYellow = BrandColors.navySoft;
+Color bgPurple = BrandColors.blueSoft;
+Color acentColor = BrandColors.green;
+Color appyellow = BrandColors.green;
+Color appgreen = BrandColors.green;
 Color pC1 = const Color(0xFFE94165);
 Color greenback = const Color(0xFF85D487);
 Color pC2 = const Color(0xFFE94165).withOpacity(.8);
-Color sliderbg = const Color(0xFF636402);
+Color sliderbg = BrandColors.navy;
 Color sliderbg2 = const Color(0xFF3C3C3C);
-Color lightYellow = const Color(0xFFFCE5BC);
-Color lightBlue = const Color(0xFFCAE3F1);
-Color circleBg = const Color(0xFFD9D0B2);
+Color lightYellow = BrandColors.navySoft;
+Color lightBlue = BrandColors.blueSoft;
+Color circleBg = BrandColors.greenSoft;
 Color footerBorderColor = const Color(0xFFDAE1E7);
 Color footergreycolor2 = const Color(0xFF7D879C);
 // ignore: use_full_hex_values_for_flutter_colors

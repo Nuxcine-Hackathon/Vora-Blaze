@@ -2,7 +2,12 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id "com.google.gms.google-services"
+}
+
+// Le vrai google-services.json n'est jamais dans Git. Sans ce fichier,
+// l'app compile quand même pour voir l'UI (couleurs, guide Vora).
+if (file("google-services.json").exists()) {
+    apply plugin: "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -51,7 +56,7 @@ android {
 
     defaultConfig {
         applicationId = "com.sizh.rideon.rider.taxiapp"
-        minSdkVersion 23
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

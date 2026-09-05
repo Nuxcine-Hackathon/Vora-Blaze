@@ -1,0 +1,146 @@
+import 'package:flutter/material.dart';
+import 'package:ride_on_driver/core/utils/theme/project_color.dart';
+
+enum BrandCompanionMood { idle, welcome, trust }
+
+/// Personnage de confiance local (asset embarqué, aucune requête réseau).
+class BrandCompanion extends StatefulWidget {
+  const BrandCompanion({
+    super.key,
+    this.size = 120,
+    this.mood = BrandCompanionMood.idle,
+    this.showGlow = true,
+  });
+
+  final double size;
+  final BrandCompanionMood mood;
+  final bool showGlow;
+
+  @override
+  State<BrandCompanion> createState() => _BrandCompanionState();
+}
+
+class _BrandCompanionState extends State<BrandCompanion>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _float;
+  late final Animation<double> _breathe;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2400),
+    )..repeat(reverse: true);
+    _float = Tween<double>(begin: -6, end: 6).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    _breathe = Tween<double>(begin: 0.98, end: 1.02).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ExcludeSemantics(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(0, _float.value),
+            child: Transform.scale(scale: _breathe.value, child: child),
+          );
+        },
+        child: SizedBox(
+          width: widget.size,
+          height: widget.size,
+          child: DecoratedBox(
+            decoration: widget.showGlow
+                ? BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: BrandColors.green.withValues(alpha: 0.18),
+                        blurRadius: widget.size * 0.22,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  )
+                : const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+            child: Padding(
+              padding: EdgeInsets.all(widget.size * 0.06),
+              child: Image.asset(
+                'assets/images/brand_companion.png',
+                fit: BoxFit.contain,
+                filterQuality: FilterQuality.high,
+                errorBuilder: (_, __, ___) =>
+                    _CompanionFallback(size: widget.size),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CompanionFallback extends StatelessWidget {
+  const _CompanionFallback({required this.size});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      size: Size.square(size),
+      painter: _CompanionPainter(),
+    );
+  }
+}
+
+class _CompanionPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    final body = Paint()..color = BrandColors.blue;
+    final navy = Paint()..color = BrandColors.navy;
+    final green = Paint()..color = BrandColors.green;
+    final skin = Paint()..color = const Color(0xFFC68642);
+    final eye = Paint()..color = BrandColors.navy;
+
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(w * 0.50, h * 0.72),
+        width: w * 0.46,
+        height: h * 0.38,
+      ),
+      body,
+    );
+    canvas.drawCircle(Offset(w * 0.50, h * 0.38), w * 0.22, skin);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(w * 0.28, h * 0.18, w * 0.44, h * 0.14),
+        Radius.circular(w * 0.08),
+      ),
+      navy,
+    );
+    canvas.drawCircle(Offset(w * 0.43, h * 0.38), w * 0.025, eye);
+    canvas.drawCircle(Offset(w * 0.57, h * 0.38), w * 0.025, eye);
+    canvas.drawCircle(Offset(w * 0.72, h * 0.62), w * 0.07, green);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}

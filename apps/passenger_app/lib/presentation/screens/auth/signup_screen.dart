@@ -13,7 +13,9 @@ import '../../cubits/auth/apple_login_cubit.dart';
 import '../../cubits/auth/google_login_cubit.dart';
 import '../../cubits/auth/signup_cubit.dart';
 import '../../cubits/auth/user_authenticate_cubit.dart';
+import '../../../core/services/vora_guide_script.dart';
 import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/vora_guide_button.dart';
 import '../../widgets/form_validations.dart';
 import '../Account/static_screen.dart';
 import '../Home/item_home_screen.dart';
@@ -61,6 +63,9 @@ class _SignUpState extends State<SignUp> {
       canPop: false,
 
       child: Scaffold(
+          floatingActionButton: const VoraGuideButton(
+            scene: VoraGuideScene.signup,
+          ),
           bottomSheet: isNumeric==true&& Platform.isIOS?KeyboardDoneButton(
             onTap: () {
               setState(() {

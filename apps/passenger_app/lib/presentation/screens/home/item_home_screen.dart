@@ -29,6 +29,8 @@ import '../../cubits/location/user_current_location_cubit.dart';
 import '../../cubits/profile/edit_profile_cubit.dart';
 import '../../cubits/realtime/update_ride_request_parameter.dart';
 import '../../cubits/vehicle_data/get_vehicle_cetgegory_cubit.dart';
+import '../../../core/services/vora_guide_script.dart';
+import '../../widgets/vora_guide_button.dart';
 import '../Search/loading_nearby_search_screen.dart';
 import '../Search/route_location_screen.dart';
 
@@ -327,6 +329,9 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
         extendBodyBehindAppBar: true,
         drawer: const MyDrawer(),
         key: _scaffoldKey,
+        floatingActionButton: const VoraGuideButton(
+          scene: VoraGuideScene.home,
+        ),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(170),
           child: Container(
@@ -350,10 +355,10 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color.fromARGB(255, 245, 237, 213),
-                Color.fromARGB(255, 255, 247, 223),
-                Color.fromARGB(255, 248, 242, 226),
-                Color.fromARGB(255, 254, 238, 196),
+                BrandColors.navySoft,
+                BrandColors.blueSoft,
+                Colors.white,
+                BrandColors.greenSoft,
               ],
             ),
           ),

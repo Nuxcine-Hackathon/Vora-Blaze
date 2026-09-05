@@ -5,9 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ride_on/core/utils/translate.dart';
 import 'package:ride_on/presentation/screens/onboarding/language_select_screen.dart';
+import '../../../core/services/vora_guide_script.dart';
 import '../../../core/utils/common_widget.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../../core/utils/theme/theme_style.dart';
+import '../../widgets/brand_companion.dart';
 import '../../cubits/auth/apple_login_cubit.dart';
 import '../../cubits/auth/google_login_cubit.dart';
 import '../Auth/google_update_screen.dart';
@@ -108,15 +110,19 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                               "assets/images/EllipseCircle.svg",
                               height: MediaQuery.of(context).size.height * 0.38,
                               fit: BoxFit.fill,
+                              colorFilter: const ColorFilter.mode(
+                                BrandColors.blue,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                           Positioned(
-                            bottom: 0,
+                            bottom: 8,
                             left: 0,
-                            right: 40,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 30, right: 20, bottom: 30),
-                              child: Image.asset("assets/images/carImage.png"),
+                            right: 0,
+                            child: BrandCompanion.fromScene(
+                              scene: VoraGuideScene.onboarding,
+                              size: 148,
                             ),
                           ),
                         ],

@@ -11,6 +11,8 @@ import '../../../core/utils/theme/theme_style.dart';
 import '../../cubits/book_ride_cubit.dart';
 import '../../cubits/location/get_item_price_cubit.dart';
 import '../../cubits/location/get_nearby_drivers_cubit.dart';
+import '../../../core/services/vora_guide_script.dart';
+import '../../widgets/vora_guide_button.dart';
 
 class LoadingNearbySearchScreen extends StatefulWidget {
   const LoadingNearbySearchScreen({super.key});
@@ -174,6 +176,9 @@ class _LoadingNearbySearchScreenState extends State<LoadingNearbySearchScreen> {
       canPop: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        floatingActionButton: const VoraGuideButton(
+          scene: VoraGuideScene.searching,
+        ),
         body: Stack(
           children: [
 

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/services/voice_announcer.dart';
+import '../../../core/services/vora_guide_script.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../../core/utils/translate.dart';
 import '../../cubits/assistant_cubit.dart';
+import '../../widgets/brand_companion.dart';
 
 class AssistantChatScreen extends StatefulWidget {
   const AssistantChatScreen({super.key});
@@ -15,6 +18,16 @@ class AssistantChatScreen extends StatefulWidget {
 class _AssistantChatScreenState extends State<AssistantChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  int _lastSpokenCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      VoiceAnnouncer.instance
+          .speakGuide(VoraGuideScript.of(VoraGuideScene.chat).spoken);
+    });
+  }
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -36,18 +49,27 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
     _scrollToBottom();
   }
 
+  void _speakLatestReply(AssistantState state) {
+    if (state.isLoading || state.messages.length <= _lastSpokenCount) return;
+    final last = state.messages.last;
+    if (!last.isUser) {
+      _lastSpokenCount = state.messages.length;
+      VoiceAnnouncer.instance.speakGuide(last.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: BrandColors.navySoft,
       appBar: AppBar(
-        backgroundColor: whiteColor,
+        backgroundColor: BrandColors.navy,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black87),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
-          "Assistant OnTravel".translate(context),
+          "Assistant Vora".translate(context),
           style: const TextStyle(
-            color: Colors.black87,
+            color: Colors.white,
             fontWeight: FontWeight.w600,
             fontSize: 17,
           ),
@@ -56,8 +78,17 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 12, bottom: 4),
+              child: BrandCompanion(
+                size: 88,
+                mood: BrandCompanionMood.welcome,
+                message: "Posez-moi une question.",
+              ),
+            ),
             Expanded(
-              child: BlocBuilder<AssistantCubit, AssistantState>(
+              child: BlocConsumer<AssistantCubit, AssistantState>(
+                listener: (context, state) => _speakLatestReply(state),
                 builder: (context, state) {
                   _scrollToBottom();
                   if (state.messages.isEmpty) {
@@ -65,9 +96,12 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(24),
                         child: Text(
-                          "Posez-moi une question sur OnTravel : réservation, paiement Mobile Money, moto ou voiture, sécurité...",
+                          "Je vous aide pour une course, Mobile Money, moto ou voiture, un quartier ou un souci de sécurité.",
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+                          style: TextStyle(
+                            color: BrandColors.navy.withValues(alpha: 0.7),
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     );
@@ -78,10 +112,7 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
                     itemCount: state.messages.length + (state.isLoading ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index == state.messages.length) {
-                        return _buildBubble(
-                          "…",
-                          isUser: false,
-                        );
+                        return _buildBubble("…", isUser: false);
                       }
                       final message = state.messages[index];
                       return _buildBubble(message.text, isUser: message.isUser);
@@ -102,9 +133,9 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
                       decoration: InputDecoration(
                         hintText: "Écrivez votre message...".translate(context),
                         filled: true,
-                        fillColor: Colors.grey.shade100,
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(24),
                           borderSide: BorderSide.none,
@@ -117,11 +148,12 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
                     onTap: _send,
                     child: Container(
                       padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: themeColor,
+                      decoration: const BoxDecoration(
+                        color: BrandColors.blue,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                      child: const Icon(Icons.send_rounded,
+                          color: Colors.white, size: 20),
                     ),
                   ),
                 ],
@@ -139,9 +171,10 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
         decoration: BoxDecoration(
-          color: isUser ? themeColor : Colors.grey.shade100,
+          color: isUser ? BrandColors.blue : Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(16),
             topRight: const Radius.circular(16),
@@ -152,7 +185,7 @@ class _AssistantChatScreenState extends State<AssistantChatScreen> {
         child: Text(
           text,
           style: TextStyle(
-            color: isUser ? Colors.black87 : Colors.black87,
+            color: isUser ? Colors.white : BrandColors.navy,
             fontSize: 14.5,
           ),
         ),

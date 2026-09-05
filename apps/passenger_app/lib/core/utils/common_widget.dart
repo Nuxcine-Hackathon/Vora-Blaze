@@ -67,7 +67,7 @@ class CustomsButtons extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style:
-                    largeHeadingMedium.copyWith(color: textColor, fontSize: 14,fontWeight: FontWeight.normal),
+                    largeHeadingMedium.copyWith(color: contrastOnBrand(backgroundColor, textColor), fontSize: 14,fontWeight: FontWeight.normal),
               ),
               if (icon != null) const SizedBox(width: 10),
               if (icon != null) Icon(icon, color: bgcolor),

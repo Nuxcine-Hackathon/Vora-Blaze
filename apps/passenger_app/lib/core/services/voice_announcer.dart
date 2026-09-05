@@ -23,6 +23,14 @@ class VoiceAnnouncer {
     await _tts.speak(message);
   }
 
+  /// Voix un peu plus lente pour le guide Vora (accueil, aide, accessibilité).
+  Future<void> speakGuide(String message) async {
+    await _ensureInitialized();
+    await _tts.setSpeechRate(0.44);
+    await _tts.stop();
+    await _tts.speak(message);
+  }
+
   static const Map<String, String> rideStatusAnnouncements = {
     "accepted": "Un chauffeur a accepté votre course. Il arrive.",
     "ongoing": "Votre course a commencé. Bon trajet !",

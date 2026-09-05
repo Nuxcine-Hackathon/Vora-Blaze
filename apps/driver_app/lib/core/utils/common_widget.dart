@@ -95,7 +95,7 @@ class CustomsButtons extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: headingBlackBold(context).copyWith(
-                    color: textColor,
+                    color: contrastOnBrand(backgroundColor, textColor),
                     fontSize: fontSize ?? 14,
                     fontWeight: FontWeight.w400),
               ),

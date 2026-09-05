@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../core/utils/common_widget.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../../core/utils/theme/theme_style.dart';
+import '../../widgets/brand_companion.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -54,8 +55,19 @@ class _SplashScreenState extends State<SplashScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const BrandCompanion(
+                      size: 140,
+                      mood: BrandCompanionMood.welcome,
+                    ),
+                    const SizedBox(height: 12),
                     commonlyUserLogo(),
-                    Text("OnTravel Driver",style: heading1(context).copyWith(color: Colors.black,fontSize: 25),)
+                    Text(
+                      "OnTravel Driver",
+                      style: heading1(context).copyWith(
+                        color: BrandColors.navy,
+                        fontSize: 25,
+                      ),
+                    )
                   ],
                 ),
               ),

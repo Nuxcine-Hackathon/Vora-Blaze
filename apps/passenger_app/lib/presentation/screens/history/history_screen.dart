@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../core/services/vora_guide_script.dart';
 import '../../../core/utils/common_widget.dart';
+import '../../widgets/vora_guide_button.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../../core/utils/theme/theme_style.dart';
 import '../../cubits/history/history_cubit.dart';
@@ -84,6 +86,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
       },
       child: Scaffold(
         backgroundColor: whiteColor,
+        floatingActionButton: const VoraGuideButton(
+          scene: VoraGuideScene.history,
+        ),
         appBar: AppBar(
           leadingWidth: 140,
           backgroundColor: whiteColor,

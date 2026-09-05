@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vora — où le guide parle</title>
+  <style>
+    :root {
+      --navy: #001341;
+      --blue: #023ACF;
+      --green: #309369;
+      --navy-soft: #E8EEF6;
+      --blue-soft: #E6EDFF;
+      --green-soft: #E6F4EE;
+      --ink: #001341;
+      --muted: #5B6780;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #eef2f8; color: var(--ink); font-family: "Segoe UI", Tahoma, sans-serif; }
+    header { padding: 22px 28px; background: var(--navy); color: #fff; }
+    header p { margin: 8px 0 0; color: #c9d4ea; max-width: 820px; }
+    .layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 108px); }
+    nav { background: #fff; border-right: 1px solid #d7deea; padding: 16px; }
+    nav button {
+      width: 100%; text-align: left; margin: 0 0 8px; padding: 10px 12px;
+      border: 1px solid #d7deea; background: #fff; color: var(--ink); border-radius: 10px; cursor: pointer;
+    }
+    nav button.on { background: var(--blue); color: #fff; border-color: var(--blue); }
+    nav small { display: block; color: var(--muted); font-size: 11px; }
+    .stage { padding: 24px; display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-start; }
+    .phone {
+      width: 280px; height: 580px; border: 10px solid var(--navy); border-radius: 32px;
+      background: linear-gradient(180deg, var(--navy-soft), #fff 42%, var(--green-soft));
+      position: relative; overflow: hidden; padding: 16px;
+    }
+    .phone.splash { background: linear-gradient(180deg, var(--navy), var(--blue) 50%, #fff); color: #fff; }
+    .mascot {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: #fff url("vora-companion.png") center / cover no-repeat;
+      animation: float 2.4s ease-in-out infinite alternate; cursor: pointer;
+    }
+    .mascot.fab {
+      width: 64px; height: 64px; position: absolute; right: 14px; bottom: 16px;
+    }
+    .bubble {
+      background: var(--navy); color: #fff; border-radius: 12px; padding: 8px 10px;
+      font-size: 12px; max-width: 180px; margin-bottom: 8px;
+    }
+    .fab-wrap { position: absolute; right: 12px; bottom: 14px; text-align: right; }
+    @keyframes float { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+    .hero { font-size: 20px; margin: 10px 0 6px; }
+    .sub { font-size: 13px; color: var(--muted); }
+    .btn { width: 100%; margin-top: 14px; background: var(--blue); color: #fff; border: 0; border-radius: 10px; padding: 11px; font-weight: 600; }
+    .field { background: #fff; border: 1px solid #d7deea; border-radius: 12px; padding: 10px; font-size: 13px; color: var(--muted); margin-top: 12px; }
+    .card { background: #fff; border: 1px solid #d7deea; border-radius: 12px; padding: 10px; margin-top: 8px; }
+    .price { color: var(--green); font-weight: 700; }
+    aside { max-width: 420px; }
+    aside h2 { margin: 0 0 8px; }
+    .spoken {
+      background: var(--navy); color: #fff; padding: 16px; border-radius: 14px; min-height: 92px;
+    }
+    .spoken span { display: block; font-size: 12px; color: #9db0d4; margin-bottom: 6px; }
+    .why { background: #fff; border: 1px solid #d7deea; padding: 14px; margin-top: 14px; }
+    .ok { color: var(--green); font-weight: 700; }
+    .no { color: #b42318; font-weight: 700; }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Vora, le guide visible</h1>
+    <p>Cliquez un écran à gauche pour voir où le personnage s’affiche, ce qu’il dit, et s’il reste trouvable en bas à droite. Fichier 100 % local — aucun réseau requis. Copie web complète du MVP : <a href="../vora-web/index.html" style="color:#9fd4b5">ouvrir la démo VORA</a>.</p>
+  </header>
+  <div class="layout">
+    <nav id="menu"></nav>
+    <div class="stage">
+      <div id="phone" class="phone"></div>
+      <aside>
+        <h2 id="title">Accueil</h2>
+        <div class="spoken"><span>Vora dit à voix haute</span><div id="spoken"></div></div>
+        <div class="why" id="why"></div>
+      </aside>
+    </div>
+  </div>
+  <script>
+    const scenes = [
+      {
+        id: "splash", title: "Splash", kind: "hero",
+        bubble: "Bienvenue. Je suis Vora.",
+        spoken: "Bienvenue sur Vora. Je suis votre guide. Je reste avec vous pendant tout le trajet.",
+        why: "Premier contact. Grand personnage au centre. Il parle tout de suite pour créer la confiance.",
+        findable: "Grand, au centre — pas besoin du bouton flottant."
+      },
+      {
+        id: "onboarding", title: "Onboarding", kind: "hero",
+        bubble: "Des courses sûres, même hors ligne un moment.",
+        spoken: "Ici, on réserve sans stress. Je vous guide, même si la connexion est instable.",
+        why: "Innovation Cameroun : Vora assume la connexion faible dès l’accueil.",
+        findable: "Grand personnage + bulle. Un tap le fait reparler."
+      },
+      {
+        id: "login", title: "Connexion", kind: "form",
+        bubble: "Bon retour. Entrez votre numéro.",
+        spoken: "Bon retour. Entrez votre numéro. Si vous bloquez, touchez-moi.",
+        why: "Réduit l’abandon au login. Le personnage rassure avant le numéro.",
+        findable: "Au-dessus du logo. Tap = il répète l’aide."
+      },
+      {
+        id: "signup", title: "Inscription", kind: "fab",
+        bubble: "Je vous aide à créer votre compte.",
+        spoken: "Créons votre compte ensemble. Vos informations restent protégées.",
+        why: "Sécurité visible : il dit que les données sont protégées.",
+        findable: "Bouton flottant bas droite — toujours là si le formulaire est long."
+      },
+      {
+        id: "home", title: "Accueil", kind: "fab",
+        bubble: "Où allez-vous aujourd'hui ?",
+        spoken: "Où allez-vous aujourd'hui ? Touchez-moi à tout moment si vous avez besoin d'aide.",
+        why: "Écran le plus utilisé. Vora ne gêne pas la recherche : il reste en bas à droite.",
+        findable: "Toujours visible. Un tap ouvre le chat assistant."
+      },
+      {
+        id: "destination", title: "Destination", kind: "fab",
+        bubble: "Un quartier ou un repère suffit.",
+        spoken: "Indiquez un quartier ou un repère, par exemple un carrefour connu. Pas besoin d'une adresse exacte.",
+        why: "Adaptation locale : on réserve par repère, pas seulement par GPS parfait.",
+        findable: "Flottant, au-dessus du clavier autant que possible."
+      },
+      {
+        id: "estimate", title: "Estimation", kind: "fab",
+        bubble: "Moto ou voiture, selon le trafic.",
+        spoken: "Je compare moto et voiture selon le trafic, le budget et la route.",
+        why: "Il explique le prix et le mode, pas seulement un chiffre.",
+        findable: "Bas droite, à côté des cartes véhicule."
+      },
+      {
+        id: "searching", title: "Recherche chauffeur", kind: "fab",
+        bubble: "Je cherche un chauffeur vérifié.",
+        spoken: "Je cherche un chauffeur vérifié près de vous. Restez serein, je suis là.",
+        why: "L’attente est le moment d’anxiété. Vora parle pour calmer.",
+        findable: "Flottant pendant l’attente."
+      },
+      {
+        id: "ride", title: "Course en cours", kind: "fab",
+        bubble: "Course suivie. SOS si besoin.",
+        spoken: "Votre course est suivie. En cas de souci, touchez-moi ou le bouton d'urgence.",
+        why: "Sécurité passager : guide + SOS, sans cacher la carte.",
+        findable: "Bas droite, distinct du SOS."
+      },
+      {
+        id: "history", title: "Historique", kind: "fab",
+        bubble: "Vos trajets et reçus sont ici.",
+        spoken: "Retrouvez ici vos trajets, vos reçus et vos évaluations.",
+        why: "Moins critique, mais il reste trouvable si une question arrive.",
+        findable: "Bouton flottant."
+      },
+      {
+        id: "profile", title: "Profil", kind: "fab",
+        bubble: "Vos données restent protégées.",
+        spoken: "Vos informations restent protégées. Je peux vous expliquer chaque réglage.",
+        why: "Lien sécurité / confiance sur un écran sensible.",
+        findable: "Bouton flottant."
+      },
+      {
+        id: "chat", title: "Chat assistant", kind: "hero",
+        bubble: "Posez-moi une question.",
+        spoken: "Je suis Vora. Posez-moi une question sur une course, Mobile Money, la sécurité ou un quartier.",
+        why: "C’est sa maison. Il est grand, il parle les réponses.",
+        findable: "Personnage en haut du chat. Ouvert depuis n’importe quel bouton flottant."
+      }
+    ];
+
+    const menu = document.getElementById("menu");
+    const phone = document.getElementById("phone");
+    const title = document.getElementById("title");
+    const spoken = document.getElementById("spoken");
+    const why = document.getElementById("why");
+
+    function renderPhone(scene) {
+      phone.className = "phone" + (scene.id === "splash" ? " splash" : "");
+      const fab = `
+        <div class="fab-wrap">
+          <div class="bubble">${scene.bubble}</div>
+          <div class="mascot fab" title="Ouvre l'assistant"></div>
+        </div>`;
+      const hero = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center">
+          <div class="bubble">${scene.bubble}</div>
+          <div class="mascot"></div>
+          <div class="hero">${scene.title}</div>
+        </div>`;
+      const body = {
+        splash: hero,
+        onboarding: `<div class="bubble">${scene.bubble}</div><div class="mascot"></div><div class="hero">Trajets fiables.</div><div class="sub">Chauffeurs vérifiés, même avec une connexion instable.</div><button class="btn">Créer un compte</button>`,
+        login: `<div class="bubble">${scene.bubble}</div><div class="mascot"></div><div class="hero">Connexion</div><div class="field">+237 6 XX XX XX XX</div><button class="btn">Se connecter</button>`,
+        signup: `<div class="hero">Inscription</div><div class="field">Nom</div><div class="field">Téléphone</div><button class="btn">Continuer</button>${fab}`,
+        home: `<strong>Bonjour, Amina</strong><div class="sub">Où allez-vous aujourd’hui ?</div><div class="field">Position actuelle</div><div class="card">Moto · <span class="price">rapide</span></div><div class="card">Voiture · <span class="price">confort</span></div>${fab}`,
+        destination: `<div class="hero">Destination</div><div class="field">Départ : Carrefour Nlongkak</div><div class="field">Arrivée : un quartier ou un repère</div>${fab}`,
+        estimate: `<div class="hero">Estimation</div><div class="card">Moto · 800 FCFA</div><div class="card">Voiture · 2 000 FCFA</div>${fab}`,
+        searching: `<div class="hero">Recherche</div><div class="sub">Chauffeur vérifié à proximité…</div>${fab}`,
+        ride: `<div class="hero">Course suivie</div><div class="sub">Jean · Toyota · SOS disponible</div>${fab}`,
+        history: `<div class="hero">Historique</div><div class="card">Hier · Mokolo → Bastos</div><div class="card">Lundi · Mvog-Ada → Essos</div>${fab}`,
+        profile: `<div class="hero">Profil</div><div class="field">Nom, téléphone, photo</div>${fab}`,
+        chat: `<div class="bubble">${scene.bubble}</div><div class="mascot"></div><div class="card">Vous : moto ou voiture ce soir ?</div><div class="card">Vora : avec la pluie, je conseille la voiture.</div>`
+      };
+      phone.innerHTML = body[scene.id] || hero;
+      phone.querySelectorAll(".mascot").forEach((el) => {
+        el.onclick = () => { spoken.textContent = scene.spoken; };
+      });
+    }
+
+    function select(scene, btn) {
+      document.querySelectorAll("nav button").forEach((b) => b.classList.remove("on"));
+      btn.classList.add("on");
+      title.textContent = scene.title;
+      spoken.textContent = scene.spoken;
+      why.innerHTML = `<p>${scene.why}</p><p><span class="ok">Trouvable :</span> ${scene.findable}</p><p><span class="no">Pas sur la carte chauffeur</span> — pour ne pas masquer la conduite.</p>`;
+      renderPhone(scene);
+    }
+
+    scenes.forEach((scene, i) => {
+      const btn = document.createElement("button");
+      btn.innerHTML = `${scene.title}<small>${scene.kind === "fab" ? "Bouton flottant" : "Personnage central"}</small>`;
+      btn.onclick = () => select(scene, btn);
+      menu.appendChild(btn);
+      if (i === 4) select(scene, btn);
+    });
+  </script>
+</body>
+</html>

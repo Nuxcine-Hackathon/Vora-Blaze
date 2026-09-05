@@ -1,8 +1,11 @@
 import 'package:ride_on/core/extensions/workspace.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ride_on/core/services/vora_guide_script.dart';
+import 'package:ride_on/core/utils/theme/project_color.dart';
 import 'package:ride_on/core/utils/theme/theme_style.dart';
 import '../../../core/utils/common_widget.dart';
+import '../../widgets/brand_companion.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -53,8 +56,19 @@ class _SplashScreenState extends State<SplashScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    BrandCompanion.fromScene(
+                      scene: VoraGuideScene.splash,
+                      size: 150,
+                    ),
+                    const SizedBox(height: 16),
                     commonlyUserLogo(),
-                    Text("OnTravel",style: heading1(context).copyWith(color: Colors.black,fontSize: 25),)
+                    Text(
+                      "OnTravel",
+                      style: heading1(context).copyWith(
+                        color: BrandColors.navy,
+                        fontSize: 25,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -64,12 +78,24 @@ class _SplashScreenState extends State<SplashScreen>
         Positioned(
           bottom: 0,
           left: 0,
-          child: SvgPicture.asset("assets/images/vector_bottom.svg"),
+          child: SvgPicture.asset(
+            "assets/images/vector_bottom.svg",
+            colorFilter: const ColorFilter.mode(
+              BrandColors.blue,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
         Positioned(
           top: 0,
           right: 0,
-          child: SvgPicture.asset("assets/images/vector_top.svg"),
+          child: SvgPicture.asset(
+            "assets/images/vector_top.svg",
+            colorFilter: const ColorFilter.mode(
+              BrandColors.green,
+              BlendMode.srcIn,
+            ),
+          ),
         )
       ],
     );
