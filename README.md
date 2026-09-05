@@ -1,4 +1,4 @@
-# VORA — [Nom de votre équipe]
+# VORA — Blaze
 
 > Solution de mobilité intelligente adaptée au contexte camerounais.
 > Projet réalisé dans le cadre du **NuxCine Hackathon 2026** (48h).
