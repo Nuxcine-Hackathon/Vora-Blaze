@@ -4,6 +4,12 @@
 !.env.example
 **/google-services.json
 **/GoogleService-Info.plist
+# Shared hackathon Firebase project config (client-side, not a server secret) —
+# both apps are meant to build out of the box for every teammate. See README §10.
+!apps/passenger_app/android/app/google-services.json
+!apps/passenger_app/ios/Runner/GoogleService-Info.plist
+!apps/driver_app/android/app/google-services.json
+!apps/driver_app/ios/Runner/GoogleService-Info.plist
 serviceAccountKey.json
 *.pem
 *.key

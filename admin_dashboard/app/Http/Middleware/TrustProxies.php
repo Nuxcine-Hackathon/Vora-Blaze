@@ -10,9 +10,14 @@ class TrustProxies extends Middleware
     /**
      * The trusted proxies for this application.
      *
+     * The app is only ever reached through EasyPanel's reverse proxy on a
+     * private Docker network (never directly), so trusting every incoming
+     * proxy header here is safe and required for redirect()/url() to
+     * generate https:// links instead of http://.
+     *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.

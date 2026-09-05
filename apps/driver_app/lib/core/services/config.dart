@@ -1,14 +1,12 @@
 class Config {
-  static const googleKey = "YOUR_GOOGLE_MAPS_API_KEY_HERE";
+  static const googleKey = "AIzaSyAn-0WulPiQR6ZhlQu6Llg3Lo3nnt8TfB0";
   static const String oneSiginalAppid = 'YOUR_ONESIGNAL_APP_ID_HERE';
   static const String oneSiginalApiKey = 'YOUR_ONESIGNAL_API_KEY_HERE';
   static const String riderAppOneSiginalAppid ='YOUR_RIDER_APP_ONESIGNAL_APP_ID_HERE';
   static const String riderAppOneSiginalApiKey ='YOUR_RIDER_APP_ONESIGNAL_API_KEY_HERE';
 
   // Temporary base domain URL for setup (please add your final URL here)
-  static const String baseDomain = 'https://rideon.unibooker.app';
-
-  // static const String baseDomain = 'https://innovittree.in';
+  static const String baseDomain = 'https://vora-ontravel-backend.lzy6mi.easypanel.host';
   // Do not change any code below this line. ==================================================
 
   static const String version = '/api/v1/';
