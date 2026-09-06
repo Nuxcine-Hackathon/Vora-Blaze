@@ -1,0 +1,95 @@
+# === Secrets — JAMAIS versionnés ===
+.env
+.env.*
+!.env.example
+**/google-services.json
+**/GoogleService-Info.plist
+# Shared hackathon Firebase project config (client-side, not a server secret) —
+# both apps are meant to build out of the box for every teammate. See README §10.
+!apps/passenger_app/android/app/google-services.json
+!apps/passenger_app/ios/Runner/GoogleService-Info.plist
+!apps/driver_app/android/app/google-services.json
+!apps/driver_app/ios/Runner/GoogleService-Info.plist
+serviceAccountKey.json
+*.pem
+*.key
+
+# Distribution archives (redundant with extracted source; keep the repo out of GitHub's size limits)
+*.zip
+
+# === OS / éditeurs ===
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# ------------------------------------------------------------------
+# Laravel backend (admin_dashboard)
+# ------------------------------------------------------------------
+admin_dashboard/vendor/
+admin_dashboard/node_modules/
+admin_dashboard/.env
+admin_dashboard/.env.backup
+admin_dashboard/.phpunit.result.cache
+admin_dashboard/composer.phar
+admin_dashboard/tmp/
+admin_dashboard/bootstrap/cache/*.php
+admin_dashboard/storage/*.key
+admin_dashboard/storage/app/public/*
+!admin_dashboard/storage/app/public/.gitignore
+admin_dashboard/storage/framework/cache/data/*
+admin_dashboard/storage/framework/sessions/*
+admin_dashboard/storage/framework/views/*
+admin_dashboard/storage/framework/testing/*
+admin_dashboard/storage/logs/*.log
+admin_dashboard/storage/debugbar/
+admin_dashboard/storage/firebase/*.json
+admin_dashboard/public/storage
+admin_dashboard/public/hot
+!admin_dashboard/storage/**/.gitignore
+# Never commit real Firebase Auth credential files (server-side)
+admin_dashboard/storage/firebase/firebase_credentials.json
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# ------------------------------------------------------------------
+# Flutter apps (rider and driver)
+# ------------------------------------------------------------------
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/build/
+**/android/.gradle/
+**/android/app/.cxx/
+**/android/local.properties
+**/android/key.properties
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/App.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/.last_build_id
+**/ios/build/
+**/macos/Pods/
+**/macos/Flutter/ephemeral/
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
+**/*.apk
+**/*.aab
+**/*.ipa
+
+# === Node / Firebase (Cloud Functions used by the rider app) ===
+**/node_modules/
+**/functions/node_modules/
+**/firebase-debug.log
+**/firestore-debug.log
+**/ui-debug.log
+**/.firebase/
