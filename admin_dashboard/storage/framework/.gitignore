@@ -1,0 +1,7 @@
+*
+!.gitignore
+!index.php
+!cache/
+!sessions/
+!testing/
+!views/

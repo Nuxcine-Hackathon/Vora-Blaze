@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VORA — démo web (hors ligne)</title>
+  <style>
+    :root {
+      --navy: #001341;
+      --blue: #023ACF;
+      --green: #309369;
+      --navy-soft: #E8EEF6;
+      --blue-soft: #E6EDFF;
+      --green-soft: #E6F4EE;
+      --muted: #5B6780;
+      --bg: #d9e0ee;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: "Segoe UI", Tahoma, sans-serif; background: var(--bg); color: var(--navy); }
+    body { display: flex; justify-content: center; align-items: flex-start; gap: 24px; padding: 20px; }
+    .desk { width: 280px; }
+    .desk h1 { font-size: 20px; margin: 0 0 8px; }
+    .desk p, .desk li { font-size: 13px; color: var(--muted); line-height: 1.45; }
+    .desk code { background: #fff; padding: 1px 5px; }
+    .phone {
+      width: 390px; height: 820px; background: #fff; border: 12px solid var(--navy);
+      border-radius: 36px; overflow: hidden; position: relative; box-shadow: 0 16px 0 #00134122;
+      display: flex; flex-direction: column;
+    }
+    .status { height: 28px; background: var(--navy); color: #fff; font-size: 11px; display: flex; justify-content: space-between; align-items: center; padding: 0 14px; }
+    .screen { flex: 1; overflow: auto; position: relative; background: linear-gradient(180deg, var(--navy-soft), #fff 40%, var(--green-soft)); }
+    .pad { padding: 16px; }
+    .top { display: flex; align-items: center; gap: 10px; }
+    .back { border: 0; background: #fff; width: 36px; height: 36px; border-radius: 10px; cursor: pointer; color: var(--navy); font-weight: 700; }
+    h2 { margin: 0 0 8px; font-size: 22px; }
+    h3 { margin: 16px 0 8px; font-size: 15px; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .btn, button.btn {
+      width: 100%; border: 0; background: var(--blue); color: #fff; border-radius: 10px;
+      padding: 13px; font-weight: 700; cursor: pointer; margin-top: 12px;
+    }
+    .btn.green { background: var(--green); }
+    .btn.ghost { background: #fff; color: var(--navy); border: 1px solid #c9d3e6; }
+    .btn.sos { background: #c1121f; }
+    .field, input, select, textarea {
+      width: 100%; border: 1px solid #c9d3e6; border-radius: 12px; padding: 12px; margin-top: 8px;
+      font: inherit; background: #fff; color: var(--navy);
+    }
+    .card { background: #fff; border: 1px solid #d7deea; border-radius: 14px; padding: 12px; margin-top: 10px; }
+    .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .tabs { display: flex; background: #fff; border-radius: 28px; padding: 4px; margin-top: 12px; }
+    .tabs b { flex: 1; text-align: center; padding: 9px 0; border-radius: 24px; cursor: pointer; font-size: 13px; }
+    .tabs b.on { background: var(--blue); color: #fff; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .price { color: var(--green); font-weight: 800; }
+    .badge { display: inline-block; background: var(--green); color: #fff; border-radius: 999px; padding: 3px 8px; font-size: 11px; }
+    .mascot {
+      width: 120px; height: 120px; border-radius: 50%; margin: 0 auto;
+      background: #fff url("vora-companion.png") center / cover no-repeat;
+      animation: float 2.4s ease-in-out infinite alternate; cursor: pointer;
+    }
+    .mascot.sm { width: 64px; height: 64px; }
+    .bubble { background: var(--navy); color: #fff; border-radius: 12px; padding: 8px 10px; font-size: 12px; max-width: 210px; margin: 0 auto 8px; text-align: center; }
+    .fab { position: absolute; right: 12px; bottom: 14px; text-align: right; z-index: 5; }
+    .map {
+      height: 210px; border-radius: 16px; margin-top: 10px;
+      background:
+        linear-gradient(#023acf33 1px, transparent 1px),
+        linear-gradient(90deg, #023acf33 1px, transparent 1px),
+        linear-gradient(180deg, #cfe0d8, #d7e3f7);
+      background-size: 28px 28px, 28px 28px, auto;
+      position: relative; overflow: hidden;
+    }
+    .pin { position: absolute; width: 14px; height: 14px; border-radius: 50%; }
+    .pin.a { left: 18%; top: 62%; background: var(--blue); }
+    .pin.b { right: 18%; top: 22%; background: var(--green); }
+    .route { position: absolute; left: 20%; top: 28%; width: 58%; height: 38%; border: 3px dashed var(--navy); border-radius: 40% 20% 50% 30%; border-left: 0; border-bottom: 0; }
+    .car { position: absolute; left: 36%; top: 46%; width: 18px; height: 18px; background: var(--navy); border-radius: 4px; }
+    .chat { display: flex; flex-direction: column; gap: 8px; min-height: 240px; }
+    .msg { max-width: 80%; padding: 10px 12px; border-radius: 14px; font-size: 13px; }
+    .msg.me { align-self: flex-end; background: var(--blue); color: #fff; }
+    .msg.bot { align-self: flex-start; background: #fff; border: 1px solid #d7deea; }
+    .center { text-align: center; padding-top: 40px; }
+    .splash { background: linear-gradient(180deg, var(--navy), var(--blue) 55%, #fff); color: #fff; height: 100%; }
+    .wide { width: min(980px, 100%); height: 820px; background: #fff; border: 12px solid var(--navy); border-radius: 24px; overflow: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 8px; border-bottom: 1px solid #e6ebf4; text-align: left; }
+    @keyframes float { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+    @media (max-width: 900px) { .desk { display: none; } body { padding: 0; } .phone, .wide { width: 100%; height: 100vh; border: 0; border-radius: 0; } }
+  </style>
+</head>
+<body>
+  <aside class="desk">
+    <h1>VORA — copie web</h1>
+    <p>Démo hors ligne du MVP. Aucun Firebase, aucune clé. Parcours passager, chauffeur et admin.</p>
+    <p><b>Comptes démo</b></p>
+    <ul>
+      <li>Passager : <code>690000000</code> / OTP <code>1234</code></li>
+      <li>Chauffeur : <code>680000000</code> / OTP <code>1234</code></li>
+      <li>Admin : <code>admin</code> / <code>demo</code></li>
+    </ul>
+    <p>Touchez Vora : elle parle (voix du navigateur si disponible).</p>
+    <p>Flutter ne peut pas démarrer ici : l’app exige Firebase, et les secrets ne sont volontairement pas dans le dépôt.</p>
+  </aside>
+  <div id="root" class="phone"></div>
+  <script>
+    const LINES = {
+      splash: "Bienvenue sur Vora. Je suis votre guide.",
+      onboarding: "Des courses sûres, même si la connexion est instable.",
+      login: "Bon retour. Entrez votre numéro.",
+      otp: "Le code démo est 1 2 3 4.",
+      home: "Où allez-vous aujourd'hui ? Touchez-moi si vous avez besoin d'aide.",
+      dest: "Un quartier ou un repère suffit. Pas besoin d'une adresse exacte.",
+      estimate: "Je compare moto et voiture selon le trafic et votre budget.",
+      search: "Je cherche un chauffeur vérifié près de vous.",
+      ride: "Votre course est suivie. En cas de souci, touchez SOS.",
+      pay: "Paiement Mobile Money simulé. Aucune vraie transaction.",
+      history: "Vos trajets et reçus sont ici.",
+      profile: "Vos données restent protégées.",
+      chat: "Posez-moi une question sur une course, Mobile Money ou la sécurité.",
+      driver: "Passez en ligne pour recevoir des courses.",
+      request: "Une course proche. Vérifiez le trajet avant d'accepter."
+    };
+    const PLACES = [
+      "Carrefour Nlongkak, Yaoundé",
+      "Bastos, Yaoundé",
+      "Mokolo, Yaoundé",
+      "Mvog-Ada, Yaoundé",
+      "Bonanjo, Douala",
+      "Akwa, Douala",
+      "Makepe, Douala",
+      "Carrefour Warda, Yaoundé"
+    ];
+    const state = {
+      screen: "splash",
+      role: "passenger",
+      tab: "ride",
+      phone: "",
+      otp: "",
+      name: "Amina",
+      pickup: "Carrefour Nlongkak, Yaoundé",
+      drop: "",
+      vehicle: "moto",
+      fare: 800,
+      status: "idle",
+      driverOnline: false,
+      chats: [],
+      adminUser: "",
+      adminPass: ""
+    };
+    const $ = (html) => html;
+    function speak(text) {
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "fr-FR"; u.rate = 0.95;
+        window.speechSynthesis.speak(u);
+      } catch (_) {}
+    }
+    function go(screen, extra = {}) {
+      Object.assign(state, extra, { screen });
+      if (LINES[screen]) speak(LINES[screen]);
+      render();
+    }
+    function mascot(size, line) {
+      return `<div class="bubble">${line}</div><div class="mascot ${size || ""}" onclick="speak(LINES[state.screen] || this.previousElementSibling.textContent)"></div>`;
+    }
+    function fab() {
+      return `<div class="fab" onclick="go('chat')"><div class="bubble">${LINES[state.screen] || "Je suis là."}</div><div class="mascot sm"></div></div>`;
+    }
+    const BACK = {
+      otp: "login", dest: "home", estimate: "dest", search: "estimate",
+      ride: "home", sos: "ride", pay: "ride", rate: "home",
+      history: "home", profile: "home", chat: "home"
+    };
+    function top(title) {
+      return `<div class="top"><button class="back" onclick="go(BACK[state.screen] || 'home')">←</button><div><b>${title}</b></div></div>`;
+    }
+    function map() {
+      return `<div class="map"><i class="route"></i><i class="pin a"></i><i class="pin b"></i><i class="car"></i></div>`;
+    }
+    function shell(inner, wide) {
+      document.getElementById("root").className = wide ? "wide" : "phone";
+      document.getElementById("root").innerHTML = `
+        <div class="status"><span>VORA démo</span><span>12:27 · Yaoundé</span></div>
+        <div class="screen">${inner}</div>`;
+    }
+    function assistantReply(q) {
+      const t = q.toLowerCase();
+      if (t.includes("moto") || t.includes("voiture")) return "Avec les embouteillages, la moto est souvent plus rapide. S'il pleut, je conseille la voiture.";
+      if (t.includes("prix") || t.includes("combien")) return "Le prix s'affiche avant confirmation, en FCFA, avec le trafic actuel.";
+      if (t.includes("money") || t.includes("mtn") || t.includes("orange") || t.includes("payer")) return "Le paiement démo simule MTN ou Orange Money. Aucune vraie transaction.";
+      if (t.includes("sos") || t.includes("sécur")) return "Pendant la course : bouton SOS et partage WhatsApp du chauffeur, de la plaque et de la position.";
+      if (t.includes("quartier") || t.includes("repère")) return "Vous pouvez partir d'un carrefour ou d'un quartier : Nlongkak, Bastos, Mokolo, Akwa…";
+      return "Je suis Vora. Je vous aide pour une course, un quartier, Mobile Money ou la sécurité.";
+    }
+    function render() {
+      const s = state.screen;
+      if (s === "splash") return shell(`<div class="splash center pad">
+        ${mascot("", LINES.splash)}
+        <h2 style="color:#fff;margin-top:16px">VORA</h2>
+        <p>Mobilité intelligente · Cameroun</p>
+        <button class="btn" onclick="go('roles')">Entrer</button>
+      </div>`);
+      if (s === "roles") return shell(`<div class="pad center">
+        <h2>Qui êtes-vous ?</h2>
+        <p class="sub">Choisissez un système du MVP</p>
+        <button class="btn" onclick="state.role='passenger'; go('onboarding')">Passager</button>
+        <button class="btn green" onclick="state.role='driver'; go('dlogin')">Chauffeur</button>
+        <button class="btn ghost" onclick="go('alogin')">Administration</button>
+      </div>`);
+      if (s === "onboarding") return shell(`<div class="pad center">
+        ${mascot("", LINES.onboarding)}
+        <h2>Trajets fiables. Voyages fluides.</h2>
+        <p class="sub">Réservez par quartier, suivez en direct, payez en Mobile Money. Vora reste avec vous.</p>
+        <span class="badge">Chauffeurs vérifiés</span>
+        <button class="btn" onclick="go('login')">Créer un compte / Connexion</button>
+      </div>`);
+      if (s === "login") return shell(`<div class="pad">
+        ${mascot("sm", LINES.login)}
+        <h2>Connexion</h2>
+        <p class="sub">Téléphone camerounais</p>
+        <input id="ph" value="${state.phone || "690000000"}" placeholder="6 XX XX XX XX" />
+        <button class="btn" onclick="state.phone=document.getElementById('ph').value; go('otp')">Recevoir l'OTP</button>
+        <button class="btn ghost" onclick="go('roles')">Changer de rôle</button>
+      </div>`);
+      if (s === "otp") return shell(`<div class="pad">
+        ${top("Vérification")}
+        <p class="sub">Code envoyé au +237 ${state.phone}. Démo : 1234</p>
+        <input id="otp" maxlength="4" placeholder="1234" />
+        <button class="btn" onclick="(document.getElementById('otp').value||'1234')==='1234'?go('home'):alert('Code démo : 1234')">Valider</button>
+      </div>`);
+      if (s === "home") return shell(`<div class="pad">
+        <div class="row">
+          <div><b>Bonjour, ${state.name}</b><div class="sub">Où allez-vous aujourd'hui ?</div></div>
+          <button class="back" onclick="go('profile')">👤</button>
+        </div>
+        <div class="field" onclick="go('dest')">Position : ${state.pickup}</div>
+        <div class="tabs">
+          <b class="${state.tab==="ride"?"on":""}" onclick="state.tab='ride'; render()">Course</b>
+          <b class="${state.tab==="parcel"?"on":""}" onclick="state.tab='parcel'; render()">Colis</b>
+        </div>
+        <h3>Choisir votre course</h3>
+        <div class="grid">
+          <div class="card" onclick="state.vehicle='moto'; go('dest')"><b>Moto</b><div class="sub">Rapide dans le trafic</div><div class="price">dès 500 F</div></div>
+          <div class="card" onclick="state.vehicle='voiture'; go('dest')"><b>Voiture</b><div class="sub">Confort et pluie</div><div class="price">dès 1 500 F</div></div>
+        </div>
+        <h3>Repères récents</h3>
+        <div class="card" onclick="state.drop='Bastos, Yaoundé'; go('estimate')">Bastos, Yaoundé</div>
+        <div class="card" onclick="state.drop='Mokolo, Yaoundé'; go('estimate')">Mokolo, Yaoundé</div>
+        <div class="row" style="margin-top:14px">
+          <button class="btn ghost" style="width:auto" onclick="go('history')">Historique</button>
+          <button class="btn ghost" style="width:auto" onclick="go('chat')">Assistant</button>
+        </div>
+        ${fab()}
+      </div>`);
+      if (s === "dest") return shell(`<div class="pad">
+        ${top("Destination")}
+        <input value="${state.pickup}" readonly />
+        <select id="drop">${PLACES.map(p => `<option ${p===state.drop?"selected":""}>${p}</option>`).join("")}</select>
+        ${map()}
+        <button class="btn" onclick="state.drop=document.getElementById('drop').value; state.fare=state.vehicle==='moto'?800:2200; go('estimate')">Voir l'itinéraire</button>
+        ${fab()}
+      </div>`);
+      if (s === "estimate") return shell(`<div class="pad">
+        ${top("Estimation")}
+        <p class="sub">${state.pickup} → ${state.drop || "Bastos, Yaoundé"}</p>
+        ${map()}
+        <div class="card row" onclick="state.vehicle='moto'; state.fare=800; render()"><div><b>Moto</b><div class="sub">12 min · trafic fluide</div></div><b class="price">800 F</b></div>
+        <div class="card row" onclick="state.vehicle='voiture'; state.fare=2200; render()"><div><b>Voiture</b><div class="sub">28 min · bouchon au centre</div></div><b class="price">2 200 F</b></div>
+        <p class="sub">Sélection : ${state.vehicle} · ${state.fare} FCFA</p>
+        <button class="btn" onclick="go('search')">Demander ${state.vehicle}</button>
+        ${fab()}
+      </div>`);
+      if (s === "search") {
+        setTimeout(() => { if (state.screen==="search") go("ride"); }, 2200);
+        return shell(`<div class="pad center">
+          ${mascot("sm", LINES.search)}
+          <h2>Recherche d'un chauffeur vérifié</h2>
+          <p class="sub">Jean · Toyota Corolla · LT 2384</p>
+          <button class="btn ghost" onclick="go('home')">Annuler</button>
+        </div>`);
+      }
+      if (s === "ride") return shell(`<div class="pad">
+        ${top("Course en cours")}
+        ${map()}
+        <div class="card"><b>Jean Mba</b> · 4.8 ★<div class="sub">Toyota Corolla · LT 2384 · arrivée 4 min</div></div>
+        <div class="row">
+          <button class="btn sos" style="width:48%" onclick="go('sos')">SOS</button>
+          <button class="btn green" style="width:48%" onclick="alert('Lien WhatsApp démo : Jean Mba, LT 2384, Nlongkak → '+(state.drop||'Bastos'))">Partager</button>
+        </div>
+        <button class="btn" onclick="go('pay')">Arrivé · payer</button>
+        ${fab()}
+      </div>`);
+      if (s === "sos") return shell(`<div class="pad">
+        ${top("Sécurité")}
+        <h2>Alerte SOS</h2>
+        <p class="sub">Simulation : un proche et l'assistance Vora sont prévenus. Aucun vrai appel n'est passé.</p>
+        <div class="card">Contact d'urgence : +237 690 111 222</div>
+        <div class="card">Position partagée : Carrefour Nlongkak</div>
+        <button class="btn sos">Alerte envoyée (démo)</button>
+        <button class="btn ghost" onclick="go('ride')">Retour à la course</button>
+      </div>`);
+      if (s === "pay") return shell(`<div class="pad">
+        ${top("Paiement")}
+        <h2>${state.fare} FCFA</h2>
+        <p class="sub">Mobile Money simulé — aucune transaction réelle</p>
+        <div class="card" onclick="go('rate')">MTN Mobile Money</div>
+        <div class="card" onclick="go('rate')">Orange Money</div>
+        <div class="card" onclick="go('rate')">Espèces au chauffeur</div>
+        ${fab()}
+      </div>`);
+      if (s === "rate") return shell(`<div class="pad center">
+        ${mascot("sm", "Merci. Votre avis aide les autres passagers.")}
+        <h2>Noter Jean</h2>
+        <p>★★★★★</p>
+        <button class="btn" onclick="go('home')">Terminer</button>
+      </div>`);
+      if (s === "history") return shell(`<div class="pad">
+        ${top("Historique")}
+        <div class="card"><b>Hier</b><div class="sub">Mokolo → Bastos · Moto · 700 F</div></div>
+        <div class="card"><b>Lundi</b><div class="sub">Mvog-Ada → Essos · Voiture · 2 000 F</div></div>
+        ${fab()}
+      </div>`);
+      if (s === "profile") return shell(`<div class="pad">
+        ${top("Profil")}
+        <div class="card"><b>${state.name} Ngono</b><div class="sub">+237 ${state.phone || "690000000"}</div></div>
+        <div class="card">Langue : Français</div>
+        <div class="card">Contact d'urgence : +237 690 111 222</div>
+        <button class="btn ghost" onclick="go('roles')">Déconnexion</button>
+        ${fab()}
+      </div>`);
+      if (s === "chat") return shell(`<div class="pad">
+        ${top("Assistant Vora")}
+        ${mascot("sm", LINES.chat)}
+        <div class="chat" id="chatbox">
+          ${(state.chats.length?state.chats:[{who:"bot",t:"Je suis Vora. Course, quartier, Mobile Money ou sécurité ?"}]).map(m=>`<div class="msg ${m.who==="me"?"me":"bot"}">${m.t}</div>`).join("")}
+        </div>
+        <input id="q" placeholder="Écrivez…" onkeydown="if(event.key==='Enter'){sendChat()}" />
+        <button class="btn" onclick="sendChat()">Envoyer</button>
+      </div>`);
+      if (s === "dlogin") return shell(`<div class="pad">
+        <h2>Espace chauffeur</h2>
+        <input value="680000000" />
+        <button class="btn green" onclick="go('ddash')">Connexion démo</button>
+      </div>`);
+      if (s === "ddash") return shell(`<div class="pad">
+        <div class="row"><b>Jean Mba</b><span class="badge">${state.driverOnline?"En ligne":"Hors ligne"}</span></div>
+        ${map()}
+        <button class="btn ${state.driverOnline?"":"green"}" onclick="state.driverOnline=!state.driverOnline; if(state.driverOnline) go('dreq'); else render()">${state.driverOnline?"Passer hors ligne":"Passer en ligne"}</button>
+        <div class="card row"><span>Revenus du jour</span><b class="price">18 400 F</b></div>
+        <div class="card row"><span>Courses</span><b>7</b></div>
+        <button class="btn ghost" onclick="go('roles')">Quitter</button>
+      </div>`);
+      if (s === "dreq") return shell(`<div class="pad">
+        <h2>Nouvelle course</h2>
+        <p class="sub">Amina · 1,8 km · 800 F · Moto</p>
+        ${map()}
+        <div class="card">${state.pickup} → ${state.drop || "Bastos, Yaoundé"}</div>
+        <button class="btn green" onclick="go('dtrip')">Accepter</button>
+        <button class="btn ghost" onclick="go('ddash')">Refuser</button>
+      </div>`);
+      if (s === "dtrip") return shell(`<div class="pad">
+        <h2>Navigation</h2>
+        ${map()}
+        <div class="card">Passager : Amina · +237 690 000 000</div>
+        <button class="btn" onclick="go('dend')">Course terminée</button>
+        <button class="btn sos" onclick="alert('Alerte chauffeur démo envoyée à l\\'assistance Vora')">SOS chauffeur</button>
+      </div>`);
+      if (s === "dend") return shell(`<div class="pad center">
+        <h2>18 400 F aujourd'hui</h2>
+        <p class="sub">Course ajoutée à vos revenus</p>
+        <button class="btn green" onclick="go('ddash')">Retour tableau de bord</button>
+      </div>`);
+      if (s === "alogin") return shell(`<div class="pad">
+        <h2>Administration</h2>
+        <input id="au" placeholder="admin" />
+        <input id="ap" type="password" placeholder="demo" />
+        <button class="btn" onclick="(document.getElementById('au').value||'admin')==='admin' && (document.getElementById('ap').value||'demo')==='demo' ? go('admin') : alert('admin / demo')">Connexion</button>
+      </div>`);
+      if (s === "admin") return shell(`<div class="pad">
+        <div class="row"><h2>Pilotage VORA</h2><button class="back" onclick="go('roles')">✕</button></div>
+        <div class="grid">
+          <div class="card"><b>128</b><div class="sub">Passagers</div></div>
+          <div class="card"><b>36</b><div class="sub">Chauffeurs</div></div>
+          <div class="card"><b>54</b><div class="sub">Courses / j</div></div>
+          <div class="card"><b>2</b><div class="sub">Signalements</div></div>
+        </div>
+        <h3>Courses en cours</h3>
+        <table>
+          <tr><th>ID</th><th>Trajet</th><th>Statut</th></tr>
+          <tr><td>V-204</td><td>Nlongkak → Bastos</td><td>Suivi</td></tr>
+          <tr><td>V-205</td><td>Akwa → Makepe</td><td>Recherche</td></tr>
+        </table>
+        <h3>Incidents</h3>
+        <div class="card">SOS simulé · course V-198 · clôturé</div>
+        <button class="btn ghost" onclick="go('roles')">Déconnexion</button>
+      </div>`, true);
+    }
+    function sendChat() {
+      const el = document.getElementById("q");
+      const text = (el && el.value || "").trim();
+      if (!text) return;
+      if (!state.chats.length) state.chats = [{who:"bot", t:"Je suis Vora. Course, quartier, Mobile Money ou sécurité ?"}];
+      state.chats.push({who:"me", t:text});
+      const reply = assistantReply(text);
+      state.chats.push({who:"bot", t:reply});
+      speak(reply);
+      el.value = "";
+      render();
+    }
+    window.sendChat = sendChat;
+    window.go = go;
+    window.speak = speak;
+    window.LINES = LINES;
+    window.state = state;
+    speak(LINES.splash);
+    render();
+  </script>
+</body>
+</html>
