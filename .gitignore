@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.flutter-plugins .flutter-plugins-depend .packages build/ .pub-cache/ .pub/ *.iml .idea/ android/.gradle/ android/local.properties android/app/.cxx/ ios/Flutter/.last_build_id ios/Pods/ .DS_Store
