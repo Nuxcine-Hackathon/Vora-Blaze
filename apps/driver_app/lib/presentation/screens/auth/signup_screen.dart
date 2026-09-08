@@ -14,6 +14,7 @@ import '../../../core/utils/theme/theme_style.dart';
 import '../../cubits/auth/signup_cubit.dart';
 import '../../cubits/auth/user_authenticate_cubit.dart';
 import '../../cubits/realtime/manage_driver_cubit.dart';
+import '../../widgets/brand_companion.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/form_validations.dart';
 import 'login_screen.dart';
@@ -67,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                   },
                 )
               : null,
-          backgroundColor: notifires.getbgcolor,
+          backgroundColor: BrandColors.darkBg,
           body: MultiBlocListener(
               listeners: [
                 BlocListener<AuthSignUpCubit, AuthSignUpState>(
@@ -125,11 +126,20 @@ class _SignUpState extends State<SignUp> {
                                 children: [
                                   const SizedBox(height: 150),
                                   commonlyUserLogo(),
+                                  const SizedBox(height: 8),
+                                  const VoraWordmark(fontSize: 28, opacity: 0.95),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 16,
                                   ),
-                                  Text("Sign Up".translate(context),
-                                      style: heading1(context)),
+                                  Text("Créer ton compte",
+                                      style: heading1(context).copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800,
+                                      )),
+                                  const SizedBox(height: 8),
+                                  Text("Quelques infos avant de commencer",
+                                      style: regular2(context).copyWith(
+                                          color: BrandColors.muted)),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -264,9 +274,9 @@ class _SignUpState extends State<SignUp> {
                                               );
                                         }
                                       },
-                                      textColor: blackColor,
-                                      text: "Sign Up",
-                                      backgroundColor: themeColor),
+                                      textColor: Colors.white,
+                                      text: "Créer mon compte",
+                                      backgroundColor: BrandColors.primary),
                                   const SizedBox(
                                     height: 40,
                                   ),
@@ -274,9 +284,9 @@ class _SignUpState extends State<SignUp> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Already have an account?".translate(context),
+                                        "Tu as déjà un compte ?",
                                         style: regular3(context)
-                                            .copyWith(color: notifires.getGrey2whiteColor),
+                                            .copyWith(color: BrandColors.muted),
                                       ),
                                       const SizedBox(width: 5),
                                       InkWell(
@@ -287,7 +297,7 @@ class _SignUpState extends State<SignUp> {
                                                   builder: (context) => const LoginScreen()));
                                         },
                                         child: Text(
-                                          "Sign in".translate(context),
+                                          "Se connecter",
                                           style: heading1(context).copyWith(
                                             color: blackColor,
                                             fontSize: 16,

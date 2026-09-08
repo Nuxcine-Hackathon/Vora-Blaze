@@ -55,9 +55,9 @@ class _SplashScreenState extends State<SplashScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const BrandCompanion(
-                      size: 140,
-                      mood: BrandCompanionMood.welcome,
+                    Image.asset(
+                      'assets/images/vora_logo.png',
+                      height: 96,
                     ),
                     const SizedBox(height: 12),
                     const VoraWordmark(fontSize: 30),
@@ -80,12 +80,12 @@ class _SplashScreenState extends State<SplashScreen>
         Positioned(
           bottom: 0,
           left: 0,
-          child: SvgPicture.asset("assets/images/vector_bottom.svg",colorFilter: ColorFilter.mode(themeColor, BlendMode.srcIn),),
+          child: SvgPicture.asset("assets/images/vector_bottom.svg",colorFilter: const ColorFilter.mode(BrandColors.primary, BlendMode.srcIn),),
         ),
         Positioned(
           top: 0,
           right: 0,
-          child: SvgPicture.asset("assets/images/vector_top.svg",colorFilter: ColorFilter.mode(themeColor, BlendMode.srcIn)),
+          child: SvgPicture.asset("assets/images/vector_top.svg",colorFilter: const ColorFilter.mode(BrandColors.secondary, BlendMode.srcIn)),
         )
       ],
     ),

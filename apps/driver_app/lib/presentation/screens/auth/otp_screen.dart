@@ -112,7 +112,7 @@ class _OtpScreenState extends State<OtpScreen> {
               },
             ):null,
             resizeToAvoidBottomInset: isNumeric,
-            backgroundColor: notifires.getbgcolor,
+            backgroundColor: BrandColors.darkBg,
             body: MultiBlocListener(
                 listeners: [
                   BlocListener<AuthUserAuthenticateCubit,
@@ -393,22 +393,23 @@ class _OtpScreenState extends State<OtpScreen> {
                                 const SizedBox(
                                   height: 120,
                                 ),
-                                SizedBox(
-                                  height: 170,
-                                  child: Image.asset(
-                                      "assets/images/verification.png"),
-                                ),
+                                commonlyUserLogo(),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text("Verification".translate(context), style: heading1(context)),
+                                Text("Vérification",
+                                    style: heading1(context).copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                    )),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                    "Verification code was sent to your Phone number"
-                                        .translate(context),
-                                    style: regular(context)),
+                                    "Le code a été envoyé à ton numéro",
+                                    style: regular(context).copyWith(
+                                      color: BrandColors.muted,
+                                    )),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -527,7 +528,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   height: 40,
                                 ),
                                 CustomsButtons(
-                                    textColor: blackColor,
+                                    textColor: Colors.white,
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
                                         if (textEditingOtpController
@@ -594,8 +595,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                         }
                                       }
                                     },
-                                    text: "Continue",
-                                    backgroundColor: themeColor),
+                                    text: "Vérifier",
+                                    backgroundColor: BrandColors.primary),
                                 const SizedBox(
                                   height: 40,
                                 ),

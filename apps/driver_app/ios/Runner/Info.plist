@@ -17,7 +17,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>OnTravel Driver</string>
+	<string>VORA Driver</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -25,7 +25,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>OnTravel Driver</string>
+	<string>VORA Driver</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -73,17 +73,17 @@
 	</dict>
 
 	<key>NSCameraUsageDescription</key>
-	<string>OnTravel Driver needs access to your camera to capture and upload pictures of your ID for booking verification or to take photos of items and update your profile.</string>
+	<string>VORA Driver needs access to your camera to capture and upload pictures of your ID for booking verification or to take photos of items and update your profile.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>OnTravel Driver uses your location to find nearby drivers and track your ride even when you're not actively using the app, so we can provide you with real-time updates and ensure a seamless ride experience.</string>
+	<string>VORA Driver uses your location to find nearby drivers and track your ride even when you're not actively using the app, so we can provide you with real-time updates and ensure a seamless ride experience.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>OnTravel Driver needs access to your location even when the app is not in use, for real-time tracking and ride management.</string>
+	<string>VORA Driver needs access to your location even when the app is not in use, for real-time tracking and ride management.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>OnTravel Driver needs access to your location to find nearby drivers and provide ride options while you're actively using the app.</string>
+	<string>VORA Driver needs access to your location to find nearby drivers and provide ride options while you're actively using the app.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>OnTravel Driver needs access to your microphone to enable ringtone alerts when you receive a new ride request, ensuring you don't miss important notifications.</string>
+	<string>VORA Driver needs access to your microphone to enable ringtone alerts when you receive a new ride request, ensuring you don't miss important notifications.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>OnTravel Driver requires access to your photo library to upload pictures of your ID or other documents for booking verification, or to add profile and property images.</string>
+	<string>VORA Driver requires access to your photo library to upload pictures of your ID or other documents for booking verification, or to add profile and property images.</string>
 
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>

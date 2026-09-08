@@ -17,20 +17,20 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
   List content = [
     {
       "image": "assets/images/onBoarding1.png",
-      "title": "Register Vehicle",
+      "title": "Enregistre ton véhicule",
       "description":
-          "Let's get you started by registering \n your vehicle on Amar!"
+          "On commence par enregistrer ton véhicule sur VORA."
     },
     {
       "image": "assets/images/onBoarding2.png",
-      "title": "Upload Documents",
+      "title": "Ajoute tes documents",
       "description":
-          "We would like to get to know you better. Let’s get \n some documents uploaded!"
+          "Quelques pièces pour mieux te connaître et sécuriser tes courses."
     },
     {
       "image": "assets/images/onBoarding3.png",
-      "title": "Earn Money",
-      "description": "Click below and start making money!"
+      "title": "Gagne de l'argent",
+      "description": "Lance-toi et commence à encaisser tes courses."
     }
   ];
 
@@ -51,7 +51,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: notifires.getbgcolor,
+      backgroundColor: BrandColors.darkBg,
       body: Stack(
         children: [
 
@@ -95,12 +95,8 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                         return customOnboardingWidget(
                           context: context,
                           image: content[index]["image"],
-                          title: content[index]["title"]
-                              .toString()
-                              .translate(context),
-                          description: content[index]["description"]
-                              .toString()
-                              .translate(context),
+                          title: content[index]["title"].toString(),
+                          description: content[index]["description"].toString(),
                         );
                       }),
                 ),
@@ -165,9 +161,9 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                 Padding(
                   padding: const EdgeInsets.all(18),
                   child: CustomsButtons(
-                      text: currentIndex == 0 ? "Get Started" : "Next",
-                      textColor: blackColor,
-                      backgroundColor: themeColor,
+                      text: currentIndex == 0 ? "Commencer" : "Suivant",
+                      textColor: Colors.white,
+                      backgroundColor: BrandColors.primary,
                       onPressed: () {
                         setState(() {
                           if (currentIndex == 0) {
@@ -233,13 +229,13 @@ Widget customOnboardingWidget({
       Text(
         title!,
         style: regularBlack(context!)
-            .copyWith(color: notifires.getGrey1whiteColor, fontSize: 24,fontWeight: FontWeight.w600),
+            .copyWith(color: Colors.white, fontSize: 24,fontWeight: FontWeight.w600),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
           description!,
-          style: regular(context).copyWith(color: notifires.getGrey1whiteColor),
+          style: regular(context).copyWith(color: BrandColors.muted),
           textAlign: TextAlign.center,
         ),
       ),

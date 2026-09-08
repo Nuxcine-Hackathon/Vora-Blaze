@@ -33,7 +33,7 @@
     </queries>
 
     <application
-        android:label="OnTravel Driver"
+        android:label="VORA Driver"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">

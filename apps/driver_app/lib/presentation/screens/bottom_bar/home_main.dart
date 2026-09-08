@@ -126,7 +126,7 @@ class _HomeMainState extends State<HomeMain>
                     offset: const Offset(0, 4))
               ]),
           child: Center(
-            child: Image.asset('assets/images/driver_icon.png',
+            child: Image.asset('assets/images/vora_logo.png',
                 height: 60, fit: BoxFit.contain),
           ),
         ),

@@ -58,7 +58,7 @@ class LogoutCubit extends Cubit<LogoutState> {
       loginModel = null;
       latitudeGlobal = "";
       longitudeGlobal = "";
-      appLocale = const Locale('en');
+      appLocale = const Locale('fr');
       clearData(context);
  
       bool defaultDarkMode = false;
@@ -94,7 +94,7 @@ Future<void> clearData(BuildContext context) async {
   loginModel = null;
   latitudeGlobal = "";
   longitudeGlobal = "";
-  appLocale = const Locale('en');
+  appLocale = const Locale('fr');
   bool defaultDarkMode = false;
 
   box.put("getDarkValue", defaultDarkMode);

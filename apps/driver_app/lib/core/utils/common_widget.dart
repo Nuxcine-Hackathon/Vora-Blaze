@@ -35,7 +35,7 @@ import '../services/data_store.dart';
 
 Widget commonlyUserLogo() {
   return Image.asset(
-    'assets/images/driver_icon.png',
+    'assets/images/vora_logo.png',
     height: 130,
   );
 }
@@ -4068,7 +4068,7 @@ Future<void> showDutyConfirmationDialog({
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                "assets/images/appIcons.png",
+                "assets/images/vora_logo.png",
                 height: 50,
               ),
               const SizedBox(height: 20),
@@ -4289,7 +4289,7 @@ Widget commonlyUserlogoAlert() {
       width: 50,
       height: 50,
       decoration: BoxDecoration(color: blackColor),
-      child: Image.asset('assets/images/appIcons.png', fit: BoxFit.fill),
+      child: Image.asset('assets/images/vora_logo.png', fit: BoxFit.fill),
     )),
   );
 }

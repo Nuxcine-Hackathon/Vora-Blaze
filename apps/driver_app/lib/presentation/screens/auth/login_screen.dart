@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String selectedCountryCode = "+237";
-  String defaultCountry = "IN";
+  String defaultCountry = "CM";
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
           ):null,
           resizeToAvoidBottomInset: true,
-          backgroundColor: notifires.getbgcolor,
+          backgroundColor: BrandColors.darkBg,
           body: MultiBlocListener(
               listeners: [
                 BlocListener<AuthLoginCubit, AuthLoginState>(
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           "+237",
                                   defaultCountry:
                                       state.loginModel.data?.defaultCountry ??
-                                          "IN",
+                                          "CM",
                                   routeString: "Login",
                                   otpValue: state.loginModel.data!.resetToken!,
                                 )));
@@ -115,17 +115,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(children: [
                                   const SizedBox(height: 96),
-                                  const BrandCompanion(
-                                    size: 88,
-                                    mood: BrandCompanionMood.welcome,
-                                  ),
-                                  const SizedBox(height: 8),
                                   commonlyUserLogo(),
+                                  const SizedBox(height: 8),
+                                  const VoraWordmark(fontSize: 28, opacity: 0.95),
                                   const SizedBox(
-                                    height: 25,
+                                    height: 16,
                                   ),
-                                  Text("Login".translate(context),
-                                      style: heading1(context)),
+                                  Text("Bienvenue sur VORA",
+                                      style: heading1(context).copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800,
+                                      )),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text("Connecte-toi pour continuer",
+                                      style: regular2(context).copyWith(
+                                          color: BrandColors.muted)),
                                   const SizedBox(
                                     height: 15,
                                   ),
@@ -205,9 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         }
                                         clearData(context);
                                       },
-                                      textColor: blackColor,
-                                      text: "Login".translate(context),
-                                      backgroundColor: themeColor),
+                                      textColor: Colors.white,
+                                      text: "Recevoir le code",
+                                      backgroundColor: BrandColors.primary),
                                   const SizedBox(
                                     height: 40,
                                   ),
@@ -215,9 +221,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Don't have an account?".translate(context),
+                                        "Pas encore de compte ?",
                                         style: regular3(context)
-                                            .copyWith(color: notifires.getGrey2whiteColor),
+                                            .copyWith(color: BrandColors.muted),
                                       ),
                                       const SizedBox(width: 5),
                                       InkWell(
@@ -228,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   builder: (context) => const SignUp()));
                                         },
                                         child: Text(
-                                          "Sign Up".translate(context),
+                                          "Créer un compte",
                                           style: heading1(context).copyWith(
                                             color: themeColor,
                                             fontSize: 16,
