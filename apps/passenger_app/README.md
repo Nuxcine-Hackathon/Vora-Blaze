@@ -1,50 +1,16 @@
-# VORA — App Passager (Flutter)
+# RideOn Taxi
 
-## Initialisation
+A new Flutter project.
 
-Ce dossier ne contient pas encore de projet Flutter généré. Pour l'initialiser :
+## Getting Started
 
-```bash
-cd apps/passenger_app
-flutter create . --org com.vora --project-name vora_passenger
-```
+This project is a starting point for a Flutter application.
 
-Puis ajoutez vos dépendances dans `pubspec.yaml` (ex. `firebase_core`, `firebase_auth`,
-`cloud_firestore`, `google_maps_flutter` ou `mapbox_maps_flutter`, `geoflutterfire2`).
+A few resources to get you started if this is your first Flutter project:
 
-## Lancement
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-```bash
-flutter pub get
-flutter run
-```
-
-## Structure recommandée (`lib/`)
-
-```
-lib/
-├── main.dart
-├── screens/
-│   ├── auth/
-│   ├── home/
-│   ├── ride_request/
-│   ├── ride_tracking/
-│   ├── history/
-│   └── profile/
-├── models/
-├── services/       # appels Firebase, géolocalisation, tarification
-└── widgets/
-```
-
-## Écrans prioritaires (voir manuel hackathon, section 12.2)
-
-- [ ] Connexion / Inscription
-- [ ] Accueil (carte)
-- [ ] Recherche destination
-- [ ] Estimation de course
-- [ ] Confirmation
-- [ ] Recherche chauffeur
-- [ ] Course en cours
-- [ ] Course terminée
-- [ ] Historique
-- [ ] Profil
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

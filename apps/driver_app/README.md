@@ -1,48 +1,16 @@
-# VORA — App Chauffeur (Flutter)
+# ride_on_driver
 
-## Initialisation
+A new Flutter project.
 
-```bash
-cd apps/driver_app
-flutter create . --org com.vora --project-name vora_driver
-```
+## Getting Started
 
-Dépendances suggérées : `firebase_core`, `firebase_auth`, `cloud_firestore`,
-`google_maps_flutter` ou `mapbox_maps_flutter`, `geoflutterfire2`, `firebase_messaging`.
+This project is a starting point for a Flutter application.
 
-## Lancement
+A few resources to get you started if this is your first Flutter project:
 
-```bash
-flutter pub get
-flutter run
-```
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-## Structure recommandée (`lib/`)
-
-```
-lib/
-├── main.dart
-├── screens/
-│   ├── auth/
-│   ├── dashboard/          # en ligne/hors ligne, revenu du jour
-│   ├── ride_request/       # accepter/refuser une course
-│   ├── active_ride/        # navigation, communication, urgence
-│   ├── earnings/
-│   └── profile/
-├── models/
-├── services/
-└── widgets/
-```
-
-## Écrans prioritaires (voir manuel hackathon, section 12.2)
-
-- [ ] Connexion
-- [ ] Tableau de bord (en ligne / hors ligne)
-- [ ] Réception de demande de course
-- [ ] Course acceptée / navigation
-- [ ] Course en cours
-- [ ] Fin de course
-- [ ] Revenus
-- [ ] Historique
-- [ ] Profil
-- [ ] Sécurité / assistance
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

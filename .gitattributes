@@ -1,0 +1,5 @@
+# Les scripts shell doivent toujours rester en LF, meme commits/checkouts
+# depuis Windows (core.autocrlf=true) — un CRLF ici casse l'entrypoint Docker
+# avec une erreur "exec ./entrypoint.sh: no such file or directory".
+*.sh text eol=lf
+Dockerfile text eol=lf

@@ -1,0 +1,98 @@
+import 'package:ride_on/app/app_localizations.dart';
+import 'package:ride_on/app/register_cubits.dart';
+import 'package:ride_on/presentation/cubits/localizations_cubit.dart';
+import 'package:ride_on/presentation/screens/Splash/initial_screen.dart';
+import 'package:ride_on/core/extensions/workspace.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'core/extensions/helper/push_notifications.dart';
+import 'core/utils/theme/project_color.dart';
+import 'core/utils/friendly_error.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    debugPrint("Firebase indisponible (démo locale) : $e");
+  }
+  await Hive.initFlutter();
+  await Hive.openBox('appBox');
+  await Hive.openBox('lanBox');
+  try {
+    await initializeNotifications();
+  } catch (e) {
+    debugPrint("Notifications indisponibles : $e");
+  }
+  try {
+    await setupOneSignal();
+  } catch (e) {
+    debugPrint("OneSignal indisponible : $e");
+  }
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  installFriendlyErrorHandlers();
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        ...RegisterCubits().providers,
+        ChangeNotifierProvider(
+          create: (_) => ColorNotifires(),
+        ),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          context.read<LanguageCubit>().loadCurrentLanguage();
+          return BlocBuilder<LanguageCubit, LanguageState>(
+              builder: (context, state) {
+            if (state is LanguageLoader) {
+              appLocale = Locale(state.language ?? "fr");
+            }
+            return MaterialApp(
+              navigatorKey: navigatorKey,
+              builder: BotToastInit(),  
+              theme: ThemeData(
+                fontFamily: 'Poppins Regular',
+                scaffoldBackgroundColor: BrandColors.lightBg,
+                colorScheme: ColorScheme.light(
+                  primary: BrandColors.primary,
+                  onPrimary: Colors.white,
+                  secondary: BrandColors.secondary,
+                  onSecondary: Colors.white,
+                  surface: BrandColors.card,
+                  onSurface: BrandColors.ink,
+                  error: BrandColors.sos,
+                ),
+              ),
+              supportedLocales: const [
+                Locale('fr', 'FR'),
+                Locale('en', 'US'),
+                Locale('ar', 'AR'),
+              ],
+              locale: appLocale,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              debugShowCheckedModeBanner: false,
+              home: const InitialScreen(),
+            );
+          });
+        },
+      ),
+    ),
+  );
+}

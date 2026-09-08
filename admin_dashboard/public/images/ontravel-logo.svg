@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160">
+  <rect x="8" y="8" width="144" height="144" rx="39" fill="#221D1A"/>
+  <circle cx="80" cy="80" r="48.8" fill="none" stroke="#EF9F00" stroke-width="16.7"
+    stroke-dasharray="239 307" stroke-dashoffset="-20.5" stroke-linecap="round"/>
+  <circle cx="114.7" cy="51.7" r="13.9" fill="#FAF8F4"/>
+  <line x1="96.6" y1="69.8" x2="75.9" y2="49" stroke="#FAF8F4" stroke-width="8.7" stroke-linecap="round"/>
+  <line x1="107.7" y1="58.6" x2="90.6" y2="41.5" stroke="#FAF8F4" stroke-width="8.7" stroke-linecap="round" opacity=".55"/>
+  <text x="178" y="102" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="64" fill="#221D1A">On<tspan fill="#B87500">Travel</tspan></text>
+</svg>

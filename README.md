@@ -1,240 +1,156 @@
 # VORA — Blaze
 
-> Solution de mobilité intelligente adaptée au contexte camerounais.
-> Projet réalisé dans le cadre du **NuxCine Hackathon 2026** (48h).
-
----
+Backend Node/Express + Supabase pour le projet **VORA** (Hackathon NuxCine 2026, Équipe Blaze).
+Réalisé par **Edwards** (backend, coordination, déploiement), en binôme avec **Socrate** (frontend).
 
 ## 1. Présentation
 
-VORA est une plateforme de VTC (Voiture de Transport avec Chauffeur) pensée pour les réalités
-du marché camerounais : connexion Internet instable, précision GPS variable, sensibilité au
-prix, diversité des moyens de paiement, sécurité des usagers.
+API REST qui gère : authentification (OTP simulé), estimation et cycle de vie des courses (prix
+verrouillé), disponibilité et position des chauffeurs, paiements et évaluations simulés, alertes
+SOS / détection d'écart de trajet, et un assistant conversationnel basé sur la détection
+d'intentions (branché sur le module IA de Franck).
 
-Ce dépôt contient :
-- l'application mobile **Passager** (Flutter)
-- l'application mobile **Chauffeur** (Flutter)
-- le **back-office Administrateur** (web)
-- le **back-end** (Firebase : Auth, Firestore, Cloud Functions, FCM)
-- la documentation technique et produit
-
-## 2. Problème
-
-*(À compléter par l'équipe — 3 à 5 phrases sur le problème identifié : difficulté à trouver un
-chauffeur fiable, prix imprévisible, sécurité, mauvaise couverture réseau, etc.)*
-
-## 3. Notre solution
-
-*(À compléter — comment VORA répond au problème. Résumez le parcours utilisateur principal.)*
-
-## 4. Fonctionnalités
-
-### MVP (Priorité critique — voir `docs/MVP_SCOPE.md`)
-- [ ] Authentification (passager / chauffeur)
-- [ ] Géolocalisation & carte
-- [ ] Demande de course & matching
-- [ ] Estimation & calcul du prix
-- [ ] Suivi de course en temps réel
-- [ ] Paiement (réel ou simulé)
-- [ ] Historique & évaluation
-
-### Priorité élevée
-- [ ] Annulation avec gestion des frais
-- [ ] Back-office administrateur
-- [ ] Support / assistance
-
-### Fonctionnalité(s) d'innovation
-*(À compléter — décrivez votre fonctionnalité différenciante, voir `docs/INNOVATION.md`)*
-
-## 5. Innovation
-
-*(À compléter — voir section 11 du manuel du hackathon pour des pistes : IA, accessibilité,
-contexte camerounais, sécurité intelligente, etc.)*
-
-## 6. Sécurité
-
-- Authentification sécurisée (Firebase Auth, OTP téléphone)
-- Règles d'accès strictes côté base de données (Firestore Security Rules)
-- Aucune clé API ni secret dans le dépôt (voir `.env.example`)
-- Bouton SOS / partage de course *(si implémenté)*
-- Validation des entrées côté client et côté Cloud Functions
-
-Détails complets : `docs/SECURITY.md`
-
-## 7. Architecture
+## 2. Architecture
 
 ```
-APPLICATION PASSAGER (Flutter)
-APPLICATION CHAUFFEUR (Flutter)
-            │
-            ▼
-   FIREBASE (Auth, Firestore, Cloud Functions, FCM)
-            │
-   ┌────────┼─────────────┐
-   ▼        ▼             ▼
-Firestore  Maps/GPS   Cloud Functions
-(données)  (Google    (logique métier,
-            Maps/       matching, tarif,
-            Mapbox)     notifications)
-            │
-            ▼
-   ADMIN DASHBOARD (web)
+Client / Chauffeur (app Socrate)
+        │
+        ▼
+   API Express (ce repo)
+        │
+   ┌────┴────┐
+   ▼         ▼
+Supabase   Assistant IA (Franck)
+(Postgres)  (mock ou service externe)
 ```
 
-Schéma détaillé et justification des choix : `docs/ARCHITECTURE.md`
+## 3. Technologies
 
-## 8. Technologies
+- Node.js + Express
+- Supabase (Postgres + Auth via service role key côté serveur)
+- JWT pour l'authentification
+- express-validator, helmet, express-rate-limit pour la sécurité
 
-| Composant            | Techno                                   |
-|-----------------------|-------------------------------------------|
-| Mobile Passager       | Flutter                                   |
-| Mobile Chauffeur      | Flutter                                   |
-| Back-office Admin     | *(à définir — ex. React/Next.js)*         |
-| Back-end / BaaS       | Firebase (Auth, Firestore, Cloud Functions, FCM) |
-| Cartographie          | *(à définir — Google Maps Platform / Mapbox)* |
-| Design                | Figma                                     |
-
-## 9. Installation
-
-Prérequis :
-- Flutter SDK (>= 3.x) — `flutter --version`
-- Node.js (>= 18) pour les Cloud Functions
-- Un projet Firebase créé sur [console.firebase.google.com](https://console.firebase.google.com)
-- Firebase CLI : `npm install -g firebase-tools`
+## 4. Installation
 
 ```bash
-git clone <URL_DU_DEPOT>
-cd vora
-```
-
-### App Passager
-```bash
-cd apps/passenger_app
-flutter pub get
-```
-
-### App Chauffeur
-```bash
-cd apps/driver_app
-flutter pub get
-```
-
-### Back-end (Firebase Functions)
-```bash
-cd backend/firebase/functions
+git clone <votre-repository>
+cd vora-backend
 npm install
 ```
 
-### Back-office Admin
-```bash
-cd admin_dashboard
-npm install
-```
+## 5. Configuration
 
-## 10. Configuration
-
-1. Créez un projet Firebase.
-2. Activez : Authentication (téléphone + email), Firestore, Cloud Functions, Cloud Messaging.
-3. Téléchargez les fichiers de config :
-   - `google-services.json` → `apps/passenger_app/android/app/` et `apps/driver_app/android/app/`
-   - `GoogleService-Info.plist` → équivalent iOS
-4. Copiez `.env.example` en `.env` dans chaque app et remplissez les valeurs.
-
-## 11. Variables d'environnement
-
-Voir `.env.example` à la racine. Ne jamais committer de vraies clés.
-
-```
-MAPS_API_KEY=
-FIREBASE_PROJECT_ID=
-FIREBASE_API_KEY=
-FIREBASE_APP_ID=
-```
-
-## 12. Base de données
-
-Firestore (NoSQL). Collections principales : voir `docs/DATA_MODEL.md`.
-
-Pour lancer les émulateurs Firebase en local :
-```bash
-cd backend/firebase
-firebase emulators:start
-```
-
-## 13. Lancement du projet
+Copiez le fichier d'exemple et remplissez vos propres valeurs (jamais commitées) :
 
 ```bash
-# App Passager
-cd apps/passenger_app && flutter run
-
-# App Chauffeur
-cd apps/driver_app && flutter run
-
-# Back-end (émulateurs Firebase)
-cd backend/firebase && firebase emulators:start
-
-# Back-office Admin
-cd admin_dashboard && npm run dev
+cp .env.example .env
 ```
 
-## 14. Comptes de démonstration
+Variables à renseigner dans `.env` :
 
-```
-PASSAGER
-Email : demo-passager@vora.test
-Mot de passe : Demo1234!
+| Variable | Description |
+|---|---|
+| `SUPABASE_URL` | URL de votre projet Supabase |
+| `SUPABASE_SERVICE_ROLE_KEY` | Clé service role (Project Settings > API) |
+| `JWT_SECRET` | Chaîne aléatoire longue pour signer les tokens |
+| `ASSISTANT_MODE` | `mock` (par défaut) ou `llm` si Franck branche un vrai service |
+| `CORS_ORIGIN` | URL(s) du frontend, séparées par des virgules |
 
-CHAUFFEUR
-Email : demo-chauffeur@vora.test
-Mot de passe : Demo1234!
+**Ne jamais mettre de vraies clés dans GitHub.**
 
-ADMIN
-Email : demo-admin@vora.test
-Mot de passe : Demo1234!
-```
-*(Utilisez uniquement des comptes de test — jamais de vraies données personnelles.)*
+## 6. Base de données
 
-## 15. Structure du projet
+1. Créez un projet sur [supabase.com](https://supabase.com).
+2. Ouvrez **SQL Editor** et exécutez le contenu de `supabase/schema.sql`.
+3. Vous devez voir apparaître 7 tables : `users`, `vehicles`, `trips`, `payments`, `ratings`,
+   `alerts`, `assistant_logs`.
+4. Ajoutez Socrate et Franck comme collaborateurs (Project Settings > Team) pour qu'ils puissent
+   lire le schéma sans avoir les clés de prod.
 
-```
-vora/
-├── apps/
-│   ├── passenger_app/     # App Flutter — Passager
-│   └── driver_app/        # App Flutter — Chauffeur
-├── admin_dashboard/        # Back-office web Administrateur
-├── backend/
-│   └── firebase/
-│       ├── functions/      # Cloud Functions (matching, tarification, notifications)
-│       └── firestore/      # Règles de sécurité & indexes
-├── docs/                   # Documentation produit & technique
-└── scripts/                # Scripts utilitaires (seed data, etc.)
+## 7. Lancement du projet
+
+```bash
+npm run dev     # avec rechargement automatique (nodemon)
+# ou
+npm start       # mode production
 ```
 
-## 16. API utilisées
+Vérifiez que le serveur répond :
 
-- *(ex. Google Maps Platform / Mapbox — géolocalisation, itinéraires)*
-- *(ex. Firebase Cloud Messaging — notifications push)*
-- *(ex. API Mobile Money / paiement simulé)*
+```bash
+curl http://localhost:4000/health
+```
 
-## 17. Limites
+## 8. Comptes de démonstration
 
-*(À compléter avant la soumission — soyez honnêtes sur ce qui est simulé, non testé,
-ou incomplet. Le jury valorise la transparence.)*
+Aucun compte n'est pré-créé : utilisez `POST /auth/register` puis `POST /auth/verify-otp`
+(le code OTP est renvoyé directement dans la réponse en mode démo — pas de vrai SMS envoyé).
 
-## 18. Membres de l'équipe
+## 9. Aperçu des routes
 
-| Nom | Rôle |
-|-----|------|
-|     | Team Lead / Full-stack |
-|     | Frontend / Mobile |
-|     | Backend |
-|     | UI/UX / Product Designer |
-|     | Innovation / QA / Sécurité |
+| Méthode | Route | Description |
+|---|---|---|
+| GET | `/health` | Vérifie que le serveur tourne |
+| POST | `/auth/register` | Créer un compte (client/chauffeur/admin) |
+| POST | `/auth/verify-otp` | Vérifier le code OTP simulé |
+| POST | `/auth/login` | Connexion, renvoie un JWT |
+| POST | `/trips/estimate` | Estimation de prix (ne crée rien en base) |
+| POST | `/trips` | Créer une course (prix verrouillé) |
+| GET | `/trips` | Historique des courses de l'utilisateur connecté |
+| GET | `/trips/pending` | Courses en attente d'un chauffeur (statut recherche_chauffeur) |
+| GET | `/trips/:id` | Détail d'une course |
+| PATCH | `/trips/:id/accept` | Un chauffeur accepte une course |
+| PATCH | `/trips/:id/start` | Démarrer une course |
+| PATCH | `/trips/:id/end` | Terminer une course |
+| PATCH | `/trips/:id/cancel` | Annuler une course |
+| POST | `/trips/:id/check-deviation` | Vérifier un écart de trajet |
+| PUT | `/drivers/status` | Basculer en ligne / hors ligne |
+| PUT | `/drivers/position` | Mettre à jour la position GPS |
+| GET | `/drivers/nearby` | Chauffeurs disponibles à proximité |
+| POST | `/payments` | Simuler un paiement |
+| GET | `/payments/:tripId` | Récupérer le paiement d'une course |
+| POST | `/ratings` | Évaluer un utilisateur après une course |
+| GET | `/ratings/user/:userId` | Note moyenne d'un utilisateur |
+| POST | `/alerts/sos` | Déclencher une alerte SOS |
+| POST | `/assistant` | Poser une question à l'assistant IA |
 
-## 19. Figma
+Toutes les routes protégées attendent l'en-tête : `Authorization: Bearer <token>`.
+Une collection Postman peut être exportée à partir de ces routes pour les tests d'équipe.
 
-Lien du fichier Figma : *(à compléter)*
+## 10. Déploiement
 
-## 20. Démonstration
+Le fichier `render.yaml` est prêt pour un déploiement sur [Render](https://render.com) :
 
-*(Lien vidéo ou instructions de démo pour le jury)*
+1. Connectez votre dépôt GitHub à Render.
+2. Render détecte `render.yaml` et crée le service automatiquement.
+3. Renseignez les variables marquées `sync: false` dans le dashboard Render (jamais dans le repo).
+4. Déployez — vous obtenez une URL publique type `https://vora-backend.onrender.com`.
+
+(Alternative équivalente : Railway.)
+
+## 11. Sécurité
+
+- `helmet` pour les en-têtes HTTP sécurisés.
+- `express-rate-limit` : limite générale + limite stricte anti brute-force sur `/auth/*`.
+- Validation systématique des entrées via `express-validator`.
+- Mots de passe hashés avec `bcryptjs`, jamais stockés en clair.
+- Authentification par JWT, séparation des rôles (`client`, `chauffeur`, `admin`).
+- Aucun secret dans le code : tout passe par `.env` (voir `.env.example`).
+
+## 12. Limites connues (MVP hackathon)
+
+- OTP simulé (pas d'envoi SMS réel) — Twilio trial recommandé si le temps le permet.
+- Paiements et notations simulés, pas de vrai prestataire de paiement intégré.
+- `nearby` filtre les chauffeurs côté Node (pas de PostGIS) — suffisant pour le volume du MVP.
+- L'assistant IA fonctionne en mode "mock" par mots-clés tant que Franck n'a pas branché un
+  service LLM réel (`ASSISTANT_MODE=llm`).
+- Mécanisme de compensation des chauffeurs (annulations) non implémenté dans ce MVP — prévu en V2.
+
+## 13. Équipe
+
+- **Edwards** — Backend, répartition des tâches, mise en ligne
+- **Socrate** — Frontend (app client/chauffeur)
+- **Elisabeth** — Design UI (Figma)
+- **Dassi** — Design UX + personnage assistant
+- **Franck** — Assistant IA
