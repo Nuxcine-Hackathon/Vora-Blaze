@@ -1,4 +1,4 @@
-# VORA — Backend API
+# VORA — Blaze
 
 Backend Node/Express + Supabase pour le projet **VORA** (Hackathon NuxCine 2026, Équipe Blaze).
 Réalisé par **Edwards** (backend, coordination, déploiement), en binôme avec **Socrate** (frontend).
