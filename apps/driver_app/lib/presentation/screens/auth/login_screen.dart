@@ -230,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: Text(
                                           "Sign Up".translate(context),
                                           style: heading1(context).copyWith(
-                                            color: blackColor,
+                                            color: themeColor,
                                             fontSize: 16,
                                           ),
                                         ),

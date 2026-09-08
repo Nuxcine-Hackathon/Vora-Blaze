@@ -54,7 +54,8 @@ class _OtpScreenState extends State<OtpScreen> {
     Future.delayed(
       const Duration(seconds: 1),
       () {
-        textEditingOtpController.text = widget.otpValue!;
+        if (!mounted) return;
+        textEditingOtpController.text = widget.otpValue ?? '';
       },
     );
     startResendTimer();
@@ -62,19 +63,25 @@ class _OtpScreenState extends State<OtpScreen> {
 
   int _remainingTime = 15;
   bool _isResendEnabled = true;
-  late Timer _timer;
+  Timer? _timer;
 
   void startResendTimer() {
+    if (!mounted) return;
     setState(() {
       _isResendEnabled = false;
     });
 
+    _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
       setState(() {
         if (_remainingTime > 0) {
           _remainingTime--;
         } else {
-          _timer.cancel();
+          _timer?.cancel();
           _isResendEnabled = true;
           _remainingTime = 0;
         }
@@ -439,5 +446,12 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    textEditingOtpController.dispose();
+    super.dispose();
   }
 }

@@ -4,9 +4,10 @@ import 'package:ride_on/core/services/vora_guide_script.dart';
 import 'package:ride_on/core/utils/theme/project_color.dart';
 import 'package:ride_on/presentation/screens/assistant/assistant_chat_screen.dart';
 import 'package:ride_on/presentation/widgets/brand_companion.dart';
+import 'package:ride_on/presentation/widgets/vora_guide_avatar.dart';
 
-/// Bouton flottant toujours trouvable. Un tap ouvre l'assistant, un second
-/// contact fait parler Vora. Les répliques sont locales.
+/// Bouton flottant toujours trouvable. Un tap ouvre l'assistant.
+/// Si un clip VORA existe, il se joue à l'arrivée (sans TTS doublon).
 class VoraGuideButton extends StatefulWidget {
   const VoraGuideButton({
     super.key,
@@ -25,13 +26,18 @@ class _VoraGuideButtonState extends State<VoraGuideButton> {
   static final Set<VoraGuideScene> _alreadySpoken = <VoraGuideScene>{};
 
   late final VoraGuideLine _line;
+  late final bool _playOnAppear;
 
   @override
   void initState() {
     super.initState();
     _line = VoraGuideScript.of(widget.scene);
-    if (widget.speakOnAppear && !_alreadySpoken.contains(widget.scene)) {
+    final alreadyHeard = _alreadySpoken.contains(widget.scene);
+    _playOnAppear = widget.speakOnAppear && !alreadyHeard;
+    if (_playOnAppear) {
       _alreadySpoken.add(widget.scene);
+    }
+    if (_playOnAppear && _line.videoAsset == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         VoiceAnnouncer.instance.speakGuide(_line.spoken);
       });
@@ -39,7 +45,9 @@ class _VoraGuideButtonState extends State<VoraGuideButton> {
   }
 
   void _openAssistant() {
-    VoiceAnnouncer.instance.speakGuide(_line.spoken);
+    if (_line.videoAsset == null) {
+      VoiceAnnouncer.instance.speakGuide(_line.spoken);
+    }
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const AssistantChatScreen()),
     );
@@ -73,11 +81,12 @@ class _VoraGuideButtonState extends State<VoraGuideButton> {
               ),
             ),
           ),
-          BrandCompanion(
-            size: 68,
+          VoraGuideAvatar(
+            scene: widget.scene,
+            size: 72,
             mood: BrandCompanionMood.trust,
-            speakText: _line.spoken,
-            onTap: _openAssistant,
+            speakOnAppear: _playOnAppear,
+            showMessage: false,
           ),
         ],
       ),

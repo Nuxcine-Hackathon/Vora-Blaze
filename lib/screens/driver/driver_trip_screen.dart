@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
 import '../../state/trip_draft.dart';
 import '../../widgets/sos_button.dart';
+import '../../theme/vora_theme.dart';
 
 const _driverStatusLabels = {
   'acceptee': 'Rejoignez le passager',
@@ -80,7 +81,7 @@ class _DriverTripScreenState extends State<DriverTripScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(label, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          Text(label, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: VoraColors.ink)),
                           const SizedBox(height: 8),
                           Text('Départ : ${_trip!['pickup_zone']}'),
                           Text('Destination : ${_trip!['destination_zone']}'),

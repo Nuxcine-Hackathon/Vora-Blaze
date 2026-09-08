@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../state/trip_draft.dart';
+import '../../theme/vora_theme.dart';
 
 /// MVP simplifié : saisie texte pour la zone de départ/destination + un champ
 /// "repère" libre (portail, boutique, carrefour...) comme demandé au §8.3 du
@@ -64,7 +65,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
               controller: _pickupZoneCtrl,
               decoration: const InputDecoration(
                 labelText: 'Point de départ (quartier, lieu...)',
-                prefixIcon: Icon(Icons.circle, size: 12, color: Colors.green),
+                prefixIcon: Icon(Icons.circle, size: 12, color: VoraColors.ink),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -81,7 +82,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
               controller: _destinationZoneCtrl,
               decoration: const InputDecoration(
                 labelText: 'Destination',
-                prefixIcon: Icon(Icons.location_on, color: Colors.red),
+                prefixIcon: Icon(Icons.location_on, color: VoraColors.sos),
                 border: OutlineInputBorder(),
               ),
             ),

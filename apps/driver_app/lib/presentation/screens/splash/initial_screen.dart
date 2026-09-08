@@ -59,7 +59,7 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     notifires = Provider.of<ColorNotifires>(context, listen: true);
     return Scaffold(
-        backgroundColor: notifires.getbgcolor, body: BlocListener<GetRideDataCubit, GetRideDataState>(
+        backgroundColor: BrandColors.darkBg, body: BlocListener<GetRideDataCubit, GetRideDataState>(
           listener: (context, state) {
             if (state is GetRideDataSuccessForInitial) {
 

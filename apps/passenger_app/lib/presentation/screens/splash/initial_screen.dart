@@ -69,7 +69,7 @@ class _InitialScreenState extends State<InitialScreen> {
     notifires = Provider.of<ColorNotifires>(context, listen: true);
 
     return Scaffold(
-      backgroundColor: notifires.getbgcolor,
+      backgroundColor: BrandColors.darkBg,
       body: BlocListener<CheckStatusCubit, CheckRideStatusState>(
         listener: _rideStatusListener,
         child: const SplashScreen(),

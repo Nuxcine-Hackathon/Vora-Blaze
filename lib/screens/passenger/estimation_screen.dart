@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
 import '../../state/trip_draft.dart';
+import '../../theme/vora_theme.dart';
 
 class EstimationScreen extends StatefulWidget {
   const EstimationScreen({super.key});
@@ -83,13 +84,13 @@ class _EstimationScreenState extends State<EstimationScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(children: [
-                            const Icon(Icons.circle, size: 10, color: Colors.green),
+                            const Icon(Icons.circle, size: 10, color: VoraColors.ink),
                             const SizedBox(width: 8),
                             Expanded(child: Text(draft.pickupZone ?? '')),
                           ]),
                           const SizedBox(height: 8),
                           Row(children: [
-                            const Icon(Icons.location_on, size: 14, color: Colors.red),
+                            const Icon(Icons.location_on, size: 14, color: VoraColors.sos),
                             const SizedBox(width: 8),
                             Expanded(child: Text(draft.destinationZone ?? '')),
                           ]),
@@ -105,7 +106,7 @@ class _EstimationScreenState extends State<EstimationScreen> {
                   ],
                   if (_error != null) Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Text(_error!, style: const TextStyle(color: Colors.red)),
+                    child: Text(_error!, style: const TextStyle(color: VoraColors.sos)),
                   ),
                   const Spacer(),
                   ElevatedButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/api_client.dart';
 import '../state/session.dart';
+import '../theme/vora_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,15 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkSession() async {
-    await Future.delayed(const Duration(milliseconds: 600)); // petit effet splash
+    await Future.delayed(const Duration(milliseconds: 600));
     final token = await ApiClient().getToken();
 
     if (!mounted) return;
 
     if (token == null || !SessionState().isLoggedIn) {
-      // Note MVP : le token peut exister sans que SessionState soit repeuplé
-      // (ex: redémarrage de l'app). Pour le hackathon, on renvoie simplement
-      // vers /login dans ce cas — en V2, ajouter un endpoint GET /auth/me.
       Navigator.pushReplacementNamed(context, '/login');
       return;
     }
@@ -39,13 +37,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: VoraColors.darkBg,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('VORA', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-            SizedBox(height: 24),
-            CircularProgressIndicator(),
+            VoraWordmark(fontSize: 30),
+            SizedBox(height: 22),
+            SizedBox(
+              width: 44,
+              height: 44,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                color: VoraColors.primary,
+                backgroundColor: Color(0x26FFFFFF),
+              ),
+            ),
           ],
         ),
       ),

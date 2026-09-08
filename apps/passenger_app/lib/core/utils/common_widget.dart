@@ -56,8 +56,8 @@ class CustomsButtons extends StatelessWidget {
                   const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
               backgroundColor: backgroundColor,
               elevation: 0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8))),
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14))),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,7 +67,7 @@ class CustomsButtons extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style:
-                    largeHeadingMedium.copyWith(color: contrastOnBrand(backgroundColor, textColor), fontSize: 14,fontWeight: FontWeight.normal),
+                    largeHeadingMedium.copyWith(color: contrastOnBrand(backgroundColor, textColor), fontSize: 15,fontWeight: FontWeight.w800),
               ),
               if (icon != null) const SizedBox(width: 10),
               if (icon != null) Icon(icon, color: bgcolor),

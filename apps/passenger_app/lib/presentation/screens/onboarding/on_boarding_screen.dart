@@ -9,7 +9,7 @@ import '../../../core/services/vora_guide_script.dart';
 import '../../../core/utils/common_widget.dart';
 import '../../../core/utils/theme/project_color.dart';
 import '../../../core/utils/theme/theme_style.dart';
-import '../../widgets/brand_companion.dart';
+import '../../widgets/vora_guide_avatar.dart';
 import '../../cubits/auth/apple_login_cubit.dart';
 import '../../cubits/auth/google_login_cubit.dart';
 import '../Auth/google_update_screen.dart';
@@ -116,11 +116,11 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                               ),
                             ),
                           ),
-                          Positioned(
+                          const Positioned(
                             bottom: 8,
                             left: 0,
                             right: 0,
-                            child: BrandCompanion.fromScene(
+                            child: VoraGuideAvatar(
                               scene: VoraGuideScene.onboarding,
                               size: 148,
                             ),

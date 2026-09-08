@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
+import '../../theme/vora_theme.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -47,7 +48,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     itemBuilder: (ctx, i) {
                       final t = _trips[i];
                       return ListTile(
-                        leading: const Icon(Icons.directions_car),
+                        leading: const Icon(Icons.directions_car, color: VoraColors.primary),
                         title: Text('${t['pickup_zone'] ?? '?'} → ${t['destination_zone'] ?? '?'}'),
                         subtitle: Text('${t['status']} • ${t['locked_price'] ?? t['estimated_price'] ?? '--'} FCFA'),
                         trailing: Text((t['created_at'] as String? ?? '').split('T').first),

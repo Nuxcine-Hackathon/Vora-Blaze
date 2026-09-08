@@ -95,6 +95,33 @@ class _BrandCompanionState extends State<BrandCompanion>
   }
 }
 
+class VoraWordmark extends StatelessWidget {
+  const VoraWordmark({super.key, this.fontSize = 30, this.opacity = 1});
+
+  final double fontSize;
+  final double opacity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: opacity,
+      child: ShaderMask(
+        shaderCallback: (bounds) => BrandColors.wordmark.createShader(bounds),
+        child: Text(
+          'VORA',
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 1,
+            color: Colors.white,
+            height: 1,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _CompanionFallback extends StatelessWidget {
   const _CompanionFallback({required this.size});
 

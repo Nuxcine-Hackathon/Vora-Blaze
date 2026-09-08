@@ -13,6 +13,7 @@ import 'screens/passenger/history_screen.dart';
 import 'screens/passenger/profile_screen.dart';
 import 'screens/driver/driver_home_screen.dart';
 import 'screens/driver/driver_trip_screen.dart';
+import 'theme/vora_theme.dart';
 
 void main() {
   runApp(const VoraApp());
@@ -26,10 +27,7 @@ class VoraApp extends StatelessWidget {
     return MaterialApp(
       title: 'VORA',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0xFF1E3A8A), // à remplacer par le design system d'Elisabeth
-        useMaterial3: true,
-      ),
+      theme: VoraTheme.light(),
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),

@@ -80,7 +80,7 @@ class CustomsButtons extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   side: BorderSide(
                       color: borderColor ?? Colors.transparent, width: 1),
-                  borderRadius: BorderRadius.circular(8))),
+                  borderRadius: BorderRadius.circular(14))),
           child: Row(
             mainAxisAlignment: alignment == true
                 ? MainAxisAlignment.start

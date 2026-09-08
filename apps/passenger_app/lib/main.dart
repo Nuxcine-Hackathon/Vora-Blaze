@@ -63,6 +63,16 @@ void main() async {
               builder: BotToastInit(),  
               theme: ThemeData(
                 fontFamily: 'Poppins Regular',
+                scaffoldBackgroundColor: BrandColors.lightBg,
+                colorScheme: ColorScheme.light(
+                  primary: BrandColors.primary,
+                  onPrimary: Colors.white,
+                  secondary: BrandColors.secondary,
+                  onSecondary: Colors.white,
+                  surface: BrandColors.card,
+                  onSurface: BrandColors.ink,
+                  error: BrandColors.sos,
+                ),
               ),
               supportedLocales: const [
                 Locale('fr', 'FR'),

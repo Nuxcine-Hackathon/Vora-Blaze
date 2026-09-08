@@ -319,7 +319,19 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   builder: BotToastInit(),
                   navigatorObservers: [BotToastNavigatorObserver()],
                   navigatorKey: navigatorKey,
-                  theme: ThemeData(fontFamily: 'Poppins Regular'),
+                  theme: ThemeData(
+                    fontFamily: 'Poppins Regular',
+                    scaffoldBackgroundColor: BrandColors.lightBg,
+                    colorScheme: ColorScheme.light(
+                      primary: BrandColors.primary,
+                      onPrimary: Colors.white,
+                      secondary: BrandColors.secondary,
+                      onSecondary: Colors.white,
+                      surface: BrandColors.card,
+                      onSurface: BrandColors.ink,
+                      error: BrandColors.sos,
+                    ),
+                  ),
                   debugShowCheckedModeBanner: false,
                   locale: appLocale,
                   supportedLocales: const [
@@ -376,7 +388,7 @@ Future<void> showRideNotification({
       htmlFormatContent: true,
       htmlFormatTitle: true,
     ),
-    color: const Color(0xFF0A84FF), // clean blue
+    color: BrandColors.primary,
     colorized: true,
   );
 

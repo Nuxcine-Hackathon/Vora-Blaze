@@ -359,9 +359,15 @@ class _SelectionVehicleScreenState extends State<SelectionVehicleScreen> {
                                     horizontal: 12, vertical: 8),
                                 decoration: BoxDecoration(
                                   color: isSelected
-                                      ? themeColor
-                                      : Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(8),
+                                      ? BrandColors.selectedBg
+                                      : BrandColors.card,
+                                  borderRadius: BorderRadius.circular(14),
+                                  border: Border.all(
+                                    width: 1.5,
+                                    color: isSelected
+                                        ? BrandColors.secondary
+                                        : BrandColors.border,
+                                  ),
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -442,7 +448,7 @@ class _SelectionVehicleScreenState extends State<SelectionVehicleScreen> {
                     : "Book Now".translate(context),
                 textColor: blackColor,
                 backgroundColor:
-                isRequestInProgress ? Colors.grey : themeColor,
+                isRequestInProgress ? BrandColors.disabledBg : themeColor,
                 onPressed: () {
 
                   if (selectedIdIndex == -1) {

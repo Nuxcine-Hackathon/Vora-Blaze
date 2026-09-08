@@ -31,6 +31,11 @@ class VoiceAnnouncer {
     await _tts.speak(message);
   }
 
+  Future<void> stop() async {
+    if (!_initialized) return;
+    await _tts.stop();
+  }
+
   static const Map<String, String> rideStatusAnnouncements = {
     "accepted": "Un chauffeur a accepté votre course. Il arrive.",
     "ongoing": "Votre course a commencé. Bon trajet !",

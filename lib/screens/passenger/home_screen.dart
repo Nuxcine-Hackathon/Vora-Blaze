@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../state/trip_draft.dart';
+import '../../theme/vora_theme.dart';
 
 class PassengerHomeScreen extends StatefulWidget {
   const PassengerHomeScreen({super.key});
@@ -62,7 +63,7 @@ class _PassengerHomeScreenState extends State<PassengerHomeScreen> {
                 Marker(
                   point: _currentPosition,
                   width: 40, height: 40,
-                  child: const Icon(Icons.my_location, color: Colors.blue, size: 32),
+                  child: const Icon(Icons.my_location, color: VoraColors.primary, size: 32),
                 ),
               ]),
             ],
@@ -86,9 +87,9 @@ class _PassengerHomeScreenState extends State<PassengerHomeScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   child: Row(
                     children: [
-                      Icon(Icons.search),
+                      Icon(Icons.search, color: VoraColors.muted),
                       SizedBox(width: 12),
-                      Text('Où allez-vous ?', style: TextStyle(fontSize: 16)),
+                      Text('Où allez-vous ?', style: TextStyle(fontSize: 16, color: VoraColors.muted)),
                     ],
                   ),
                 ),

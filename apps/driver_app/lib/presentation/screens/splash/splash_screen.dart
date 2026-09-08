@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../core/utils/common_widget.dart';
 import '../../../core/utils/theme/project_color.dart';
-import '../../../core/utils/theme/theme_style.dart';
 import '../../widgets/brand_companion.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -36,7 +34,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Scaffold(
+      backgroundColor: BrandColors.darkBg,
+      body: Stack(
       children: [
 
         Center(
@@ -60,14 +60,17 @@ class _SplashScreenState extends State<SplashScreen>
                       mood: BrandCompanionMood.welcome,
                     ),
                     const SizedBox(height: 12),
-                    commonlyUserLogo(),
-                    Text(
-                      "OnTravel Driver",
-                      style: heading1(context).copyWith(
-                        color: BrandColors.navy,
-                        fontSize: 25,
+                    const VoraWordmark(fontSize: 30),
+                    const SizedBox(height: 22),
+                    const SizedBox(
+                      width: 44,
+                      height: 44,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: BrandColors.primary,
+                        backgroundColor: Color(0x26FFFFFF),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -85,6 +88,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: SvgPicture.asset("assets/images/vector_top.svg",colorFilter: ColorFilter.mode(themeColor, BlendMode.srcIn)),
         )
       ],
+    ),
     );
     // );
   }

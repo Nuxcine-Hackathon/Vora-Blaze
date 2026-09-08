@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
 import '../../state/session.dart';
+import '../../theme/vora_theme.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -28,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
             Text(session.role ?? '', textAlign: TextAlign.center),
             const SizedBox(height: 32),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              style: ElevatedButton.styleFrom(backgroundColor: VoraColors.sos),
               onPressed: () => _logout(context),
               child: const Text('Se déconnecter'),
             ),

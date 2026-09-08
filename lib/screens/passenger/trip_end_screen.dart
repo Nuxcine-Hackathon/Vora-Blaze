@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
 import '../../state/trip_draft.dart';
+import '../../theme/vora_theme.dart';
 
 class TripEndScreen extends StatefulWidget {
   const TripEndScreen({super.key});
@@ -84,19 +85,19 @@ class _TripEndScreenState extends State<TripEndScreen> {
                     onChanged: (v) => setState(() => _paymentMethod = v!),
                   )),
               const SizedBox(height: 16),
-              if (_error != null) Text(_error!, style: const TextStyle(color: Colors.red)),
+              if (_error != null) Text(_error!, style: const TextStyle(color: VoraColors.sos)),
               ElevatedButton(
                 onPressed: _loading ? null : _pay,
                 child: _loading ? const CircularProgressIndicator() : const Text('Payer'),
               ),
             ] else ...[
-              const Text('Paiement confirmé ✅', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+              const Text('Paiement confirmé', style: TextStyle(color: VoraColors.success, fontWeight: FontWeight.w800)),
               const SizedBox(height: 24),
               const Text('Évaluez votre chauffeur', style: TextStyle(fontWeight: FontWeight.bold)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(5, (i) => IconButton(
-                      icon: Icon(i < _rating ? Icons.star : Icons.star_border, color: Colors.amber, size: 32),
+                      icon: Icon(i < _rating ? Icons.star : Icons.star_border, color: VoraColors.primary, size: 32),
                       onPressed: () => setState(() => _rating = i + 1),
                     )),
               ),
@@ -105,7 +106,7 @@ class _TripEndScreenState extends State<TripEndScreen> {
                 decoration: const InputDecoration(labelText: 'Commentaire (optionnel)', border: OutlineInputBorder()),
               ),
               const SizedBox(height: 16),
-              if (_error != null) Text(_error!, style: const TextStyle(color: Colors.red)),
+              if (_error != null) Text(_error!, style: const TextStyle(color: VoraColors.sos)),
               ElevatedButton(
                 onPressed: _loading ? null : _submitRating,
                 child: _loading ? const CircularProgressIndicator() : const Text('Terminer'),

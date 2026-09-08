@@ -54,6 +54,7 @@ dependencies:
   sign_in_with_apple: ^6.1.1
   flutter_tts: ^4.2.0
   url_launcher: ^6.3.1
+  video_player: ^2.9.2
 
 
 
@@ -85,6 +86,7 @@ flutter:
     - assets/language/
     - assets/json/
     - assets/fonts/
+    - assets/videos/
 
   fonts:
     - family: Poppins Black

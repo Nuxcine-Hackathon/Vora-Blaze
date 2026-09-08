@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ride_on/core/services/vora_guide_script.dart';
 import 'package:ride_on/core/utils/theme/project_color.dart';
-import 'package:ride_on/core/utils/theme/theme_style.dart';
-import '../../../core/utils/common_widget.dart';
 import '../../widgets/brand_companion.dart';
+import '../../widgets/vora_guide_avatar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,7 +37,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Scaffold(
+      backgroundColor: BrandColors.darkBg,
+      body: Stack(
       children: [
         Center(
           child: Column(
@@ -52,23 +53,27 @@ class _SplashScreenState extends State<SplashScreen>
                     curve: Curves.easeInCubic,
                   ),
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    BrandCompanion.fromScene(
+                    const VoraGuideAvatar(
                       scene: VoraGuideScene.splash,
                       size: 150,
+                      showMessage: false,
                     ),
                     const SizedBox(height: 16),
-                    commonlyUserLogo(),
-                    Text(
-                      "OnTravel",
-                      style: heading1(context).copyWith(
-                        color: BrandColors.navy,
-                        fontSize: 25,
+                    const VoraWordmark(fontSize: 30),
+                    const SizedBox(height: 22),
+                    const SizedBox(
+                      width: 44,
+                      height: 44,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: BrandColors.primary,
+                        backgroundColor: Color(0x26FFFFFF),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -81,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: SvgPicture.asset(
             "assets/images/vector_bottom.svg",
             colorFilter: const ColorFilter.mode(
-              BrandColors.blue,
+              BrandColors.primary,
               BlendMode.srcIn,
             ),
           ),
@@ -92,12 +97,13 @@ class _SplashScreenState extends State<SplashScreen>
           child: SvgPicture.asset(
             "assets/images/vector_top.svg",
             colorFilter: const ColorFilter.mode(
-              BrandColors.green,
+              BrandColors.secondary,
               BlendMode.srcIn,
             ),
           ),
         )
       ],
+    ),
     );
     // );
   }

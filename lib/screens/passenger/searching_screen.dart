@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../services/api_service.dart';
 import '../../state/trip_draft.dart';
+import '../../theme/vora_theme.dart';
 
 /// Écran d'attente animé pendant que le système cherche un chauffeur.
 /// Poll léger de la course toutes les 3s pour détecter l'acceptation.
@@ -69,13 +70,23 @@ class _SearchingScreenState extends State<SearchingScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircularProgressIndicator(),
+            const SizedBox(
+              width: 80,
+              height: 80,
+              child: CircularProgressIndicator(strokeWidth: 4),
+            ),
             const SizedBox(height: 24),
-            const Text('Recherche d\'un chauffeur...', style: TextStyle(fontSize: 18)),
+            const Text('Recherche en cours', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: VoraColors.ink)),
             const SizedBox(height: 8),
-            Text('${TripDraft().lockedPrice?.toInt() ?? '--'} FCFA (prix verrouillé)'),
+            const Text(
+              'Nous recherchons un chauffeur\ndisponible près de vous',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13, color: VoraColors.muted),
+            ),
+            const SizedBox(height: 8),
+            Text('${TripDraft().lockedPrice?.toInt() ?? '--'} FCFA (prix verrouillé)', style: const TextStyle(color: VoraColors.muted)),
             const SizedBox(height: 32),
-            TextButton(onPressed: _cancel, child: const Text('Annuler', style: TextStyle(color: Colors.red))),
+            OutlinedButton(onPressed: _cancel, child: const Text('Annuler')),
           ],
         ),
       ),

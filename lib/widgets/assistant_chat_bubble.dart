@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../theme/vora_theme.dart';
 
 class ChatMessage {
   final String text;
@@ -88,10 +89,11 @@ class _AssistantChatSheetState extends State<_AssistantChatSheet> {
                       margin: const EdgeInsets.symmetric(vertical: 4),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
-                        color: m.isUser ? Colors.blue.shade100 : Colors.grey.shade200,
+                        color: m.isUser ? VoraColors.primary : VoraColors.card,
                         borderRadius: BorderRadius.circular(12),
+                        border: m.isUser ? null : Border.all(color: VoraColors.border),
                       ),
-                      child: Text(m.text),
+                      child: Text(m.text, style: TextStyle(color: m.isUser ? Colors.white : VoraColors.ink)),
                     ),
                   );
                 },
@@ -109,7 +111,10 @@ class _AssistantChatSheetState extends State<_AssistantChatSheet> {
                       onSubmitted: (_) => _send(),
                     ),
                   ),
-                  IconButton(icon: const Icon(Icons.send), onPressed: _sending ? null : _send),
+                  IconButton(
+                    icon: const Icon(Icons.send, color: VoraColors.primary),
+                    onPressed: _sending ? null : _send,
+                  ),
                 ],
               ),
             ),

@@ -4,6 +4,7 @@ import '../../services/api_service.dart';
 import '../../state/trip_draft.dart';
 import '../../widgets/sos_button.dart';
 import '../../widgets/assistant_chat_bubble.dart';
+import '../../theme/vora_theme.dart';
 
 const _statusLabels = {
   'acceptee': 'Chauffeur trouvé',
@@ -88,7 +89,7 @@ class _TripTrackingScreenState extends State<TripTrackingScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(label, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          Text(label, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: VoraColors.ink)),
                           const SizedBox(height: 8),
                           Text('Destination : ${_trip!['destination_zone'] ?? ''}'),
                           Text('Prix verrouillé : ${_trip!['locked_price']} FCFA'),
@@ -99,7 +100,7 @@ class _TripTrackingScreenState extends State<TripTrackingScreen> {
                   const Spacer(),
                   // L'annulation reste possible tant que la course n'est pas en cours
                   if (status == 'acceptee' || status == 'chauffeur_en_route')
-                    TextButton(onPressed: _cancel, child: const Text('Annuler', style: TextStyle(color: Colors.red))),
+                    TextButton(onPressed: _cancel, child: const Text('Annuler', style: TextStyle(color: VoraColors.sos))),
                 ],
               ),
             ),

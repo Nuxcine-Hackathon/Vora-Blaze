@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import '../theme/vora_theme.dart';
 
 /// Bouton d'urgence réutilisable sur les écrans de course (passager et chauffeur).
 class SosButton extends StatelessWidget {
@@ -18,7 +19,7 @@ class SosButton extends StatelessWidget {
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
           FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            style: FilledButton.styleFrom(backgroundColor: VoraColors.sos),
             onPressed: () => Navigator.pop(ctx, true),
             child: const Text('Confirmer SOS'),
           ),
@@ -32,7 +33,7 @@ class SosButton extends StatelessWidget {
       await VoraApiService().triggerSos(tripId: tripId, lat: lat, lng: lng, details: 'Déclenché depuis l\'app');
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Alerte envoyée. Restez en sécurité.'), backgroundColor: Colors.red),
+          const SnackBar(content: Text('Alerte envoyée. Restez en sécurité.'), backgroundColor: VoraColors.sos),
         );
       }
     } catch (e) {
@@ -46,9 +47,9 @@ class SosButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       heroTag: 'sos_button',
-      backgroundColor: Colors.red,
+      backgroundColor: VoraColors.sos,
       onPressed: () => _confirmAndTrigger(context),
-      child: const Text('SOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      child: const Text('SOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 11)),
     );
   }
 }

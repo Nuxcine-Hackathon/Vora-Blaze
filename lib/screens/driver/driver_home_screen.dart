@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import '../../services/api_service.dart';
 import '../../state/session.dart';
 import '../../state/trip_draft.dart';
+import '../../theme/vora_theme.dart';
 
 class DriverHomeScreen extends StatefulWidget {
   const DriverHomeScreen({super.key});
@@ -101,6 +102,7 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
           SwitchListTile(
             title: Text(_online ? 'En ligne' : 'Hors ligne'),
             subtitle: Text(_online ? 'Vous recevez des demandes de course' : 'Passez en ligne pour recevoir des courses'),
+            activeThumbColor: VoraColors.success,
             value: _online,
             onChanged: _loading ? null : _toggleOnline,
           ),

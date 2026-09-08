@@ -129,8 +129,8 @@ class _SafetyActionsWidgetState extends State<SafetyActionsWidget>
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xffFF3B30), Color(0xffFF5E57)],
+                  gradient: LinearGradient(
+                    colors: [BrandColors.sos, Color(0xFFFF5E57)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -209,7 +209,7 @@ class _SafetyActionsWidgetState extends State<SafetyActionsWidget>
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             gradient: LinearGradient(
-                              colors: [Color(0xffFF3B30), Color(0xffFF6B6B)],
+                              colors: [BrandColors.sos, Color(0xffFF6B6B)],
                             ),
                           ),
                           child: const Icon(Icons.sos_rounded,
@@ -309,7 +309,7 @@ class _SafetyActionsWidgetState extends State<SafetyActionsWidget>
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(
-                    colors: [Color(0xffFF5A5A), Color(0xffFF7E7E)],
+                    colors: [BrandColors.sos, Color(0xffFF7E7E)],
                   ),
                 ),
                 child:   Icon(Icons.call, color: whiteColor, size: 24),

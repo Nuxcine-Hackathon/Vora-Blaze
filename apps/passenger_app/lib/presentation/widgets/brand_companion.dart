@@ -115,11 +115,18 @@ class _BrandCompanionState extends State<BrandCompanion>
                   shape: BoxShape.circle,
                   color: Colors.white,
                   boxShadow: [
-                    BoxShadow(
-                      color: BrandColors.green.withValues(alpha: 0.18),
-                      blurRadius: widget.size * 0.22,
-                      spreadRadius: 1,
-                    ),
+                      BoxShadow(
+                        color: switch (widget.mood) {
+                          BrandCompanionMood.welcome =>
+                            BrandColors.blue.withValues(alpha: 0.22),
+                          BrandCompanionMood.trust =>
+                            BrandColors.green.withValues(alpha: 0.22),
+                          BrandCompanionMood.idle =>
+                            BrandColors.navy.withValues(alpha: 0.16),
+                        },
+                        blurRadius: widget.size * 0.22,
+                        spreadRadius: 1,
+                      ),
                   ],
                 )
               : const BoxDecoration(
@@ -152,6 +159,33 @@ class _BrandCompanionState extends State<BrandCompanion>
               _SpeechBubble(text: widget.message!, maxWidth: widget.size + 96),
             avatar,
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class VoraWordmark extends StatelessWidget {
+  const VoraWordmark({super.key, this.fontSize = 30, this.opacity = 1});
+
+  final double fontSize;
+  final double opacity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: opacity,
+      child: ShaderMask(
+        shaderCallback: (bounds) => BrandColors.wordmark.createShader(bounds),
+        child: Text(
+          'VORA',
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 1,
+            color: Colors.white,
+            height: 1,
+          ),
         ),
       ),
     );

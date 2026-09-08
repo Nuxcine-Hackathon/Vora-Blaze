@@ -494,7 +494,7 @@ class _SignUpState extends State<SignUp> {
                                         child: Text(
                                           "Sign in".translate(context),
                                           style: heading1(context).copyWith(
-                                            color: blackColor,
+                                            color: themeColor,
                                             fontSize: 16,
                                           ),
                                         ),
