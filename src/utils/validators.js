@@ -6,7 +6,7 @@ const registerRules = [
   body('telephone').trim().notEmpty().withMessage('telephone requis'),
   body('password').isLength({ min: 6 }).withMessage('mot de passe : 6 caractères minimum'),
   body('role').optional().isIn(['client', 'chauffeur', 'admin']),
-  body('email').optional().isEmail().withMessage('email invalide'),
+  body('email').optional({ nullable: true, checkFalsy: true }).isEmail().withMessage('email invalide'),
 ];
 
 const verifyOtpRules = [
