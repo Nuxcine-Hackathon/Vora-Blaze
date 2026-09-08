@@ -21,6 +21,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:ride_on_driver/core/utils/theme/project_color.dart';
 import 'package:ride_on_driver/core/utils/theme/theme_style.dart';
 import 'package:ride_on_driver/core/utils/translate.dart';
+import 'package:ride_on_driver/core/utils/friendly_error.dart';
 import '../../domain/entities/realtime_ride_request.dart';
 import '../../presentation/cubits/account/delete_account_cubit.dart';
 import '../../presentation/cubits/dashboard/dashboard_cubit.dart';
@@ -3290,12 +3291,12 @@ showErrorToastMessage(String message) {
   BotToast.showCustomText(
     duration: const Duration(seconds: 3),
     align: Alignment.bottomCenter
-        .add(const Alignment(0, -0.12)), // Moves up slightly
+        .add(const Alignment(0, -0.12)),
     toastBuilder: (context) {
       return Padding(
-        padding: const EdgeInsets.only(bottom: 15), // Adds bottom padding
+        padding: const EdgeInsets.only(bottom: 15),
         child: CustomToastMessages(
-          message: message.toString(),
+          message: friendlyUserMessage(message),
           error: true,
         ),
       );

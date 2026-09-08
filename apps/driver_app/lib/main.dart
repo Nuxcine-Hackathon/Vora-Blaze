@@ -23,6 +23,7 @@ import 'package:ride_on_driver/presentation/screens/Splash/initial_screen.dart';
 import 'core/extensions/helper/push_notifications.dart';
 import 'core/extensions/workspace.dart';
 import 'core/utils/theme/project_color.dart';
+import 'core/utils/friendly_error.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +51,7 @@ void main() async {
   );
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
- FlutterError.onError = (FlutterErrorDetails details) {};
+  installFriendlyErrorHandlers();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

@@ -139,8 +139,9 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
           setState(() => _isInitialLocationLoaded = true);
         },
       );
-    } catch (e) {
-      showErrorToastMessage('Error getting location: $e');
+    } catch (_) {
+      showErrorToastMessage(
+          "On n'a pas pu trouver ta position. Vérifie que le GPS est activé.");
       _selectedLocation.value = _defaultLocation;
       setState(() => _isInitialLocationLoaded = true);
     } finally {
@@ -176,8 +177,9 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
         desiredAccuracy: LocationAccuracy.high,
       );
       updateUserLocation(position);
-    } catch (e) {
-      showErrorToastMessage('Error getting location: $e');
+    } catch (_) {
+      showErrorToastMessage(
+          "On n'a pas pu trouver ta position. Vérifie que le GPS est activé.");
     } finally {
       if (!isInitialLoad) {
         _isLoadingLocation = false;

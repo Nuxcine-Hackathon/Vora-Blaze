@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ride_on/core/utils/theme/project_color.dart';
 import 'package:ride_on/core/utils/theme/theme_style.dart';
 import 'package:ride_on/core/utils/translate.dart';
+import 'package:ride_on/core/utils/friendly_error.dart';
 import 'package:ride_on/domain/entities/sos_data.dart';
 import 'package:ride_on/presentation/cubits/sos_cubit.dart';
 import 'package:ride_on/presentation/cubits/realtime/ride_request_cubit.dart';
@@ -193,7 +194,7 @@ class _SafetyActionsWidgetState extends State<SafetyActionsWidget>
                     }
 
                     if (state is SosFailed) {
-                      return _errorDialog(context, state.error);
+                      return _errorDialog(context, friendlyUserMessage(state.error));
                     }
 
                     List<Sos> sosList = [];

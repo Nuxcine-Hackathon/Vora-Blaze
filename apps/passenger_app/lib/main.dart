@@ -14,6 +14,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'core/extensions/helper/push_notifications.dart';
 import 'core/utils/theme/project_color.dart';
+import 'core/utils/friendly_error.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +39,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-   FlutterError.onError = (FlutterErrorDetails details) {};
+  installFriendlyErrorHandlers();
   runApp(
     MultiBlocProvider(
       providers: [

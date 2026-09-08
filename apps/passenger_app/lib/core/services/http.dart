@@ -63,7 +63,7 @@ Future<dynamic> httpPost(path, data, {required BuildContext context}) async {
 
     if (response.statusCode == 419) {
       if (token.isNotEmpty) {
-        showErrorToastMessage("Session expired. Please log in again.");
+        showErrorToastMessage("Ta session a expiré. Reconnecte-toi pour continuer.");
         Future.delayed(const Duration(seconds: 1), () {
           clearData(navigatorKey.currentContext!);
           goToWithClear(const LoginScreen());
@@ -119,7 +119,7 @@ Future<dynamic> httpGet(String path, Map<String, dynamic> data,
         responsegetData =
             json.decode(const Utf8Codec().decode(response.bodyBytes));
       } else {
-        showErrorToastMessage("Token regeneration failed.");
+        showErrorToastMessage("On n'a pas pu te reconnecter. Réessaie dans un instant.");
         return {"error": "Token regeneration failed"};
       }
     } else {
@@ -128,7 +128,7 @@ Future<dynamic> httpGet(String path, Map<String, dynamic> data,
 
       if (response.statusCode == 419) {
         if (token.isNotEmpty) {
-          showErrorToastMessage("Session expired. Please log in again.");
+          showErrorToastMessage("Ta session a expiré. Reconnecte-toi pour continuer.");
           Future.delayed(const Duration(seconds: 1), () {
             clearData(navigatorKey.currentContext!);
             goToWithClear(const LoginScreen());
@@ -179,7 +179,7 @@ Future<String?> generateToken() async {
       completer.complete(token);
     } else if (response.statusCode == 419) {
       if (token.isNotEmpty) {
-        showErrorToastMessage("Session expired. Please log in again.");
+        showErrorToastMessage("Ta session a expiré. Reconnecte-toi pour continuer.");
         Future.delayed(const Duration(seconds: 1), () {
           clearData(navigatorKey.currentContext!);
           goToWithClear(const LoginScreen());
