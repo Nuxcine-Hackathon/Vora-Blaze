@@ -279,7 +279,7 @@ class _RideChatScreenState extends State<RideChatScreen> {
                     child: Icon(
                       msg["seen"] == true ? Icons.done_all : Icons.check,
                       size: 12,
-                      color: msg["seen"] == true ? Colors.blue : Colors.grey,
+                      color: msg["seen"] == true ? BrandColors.primary : Colors.grey,
                     ),
                   ),
               ],

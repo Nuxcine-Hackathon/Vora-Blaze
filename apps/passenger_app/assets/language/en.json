@@ -1,5 +1,6 @@
 {
-    "Assistant OnTravel": "OnTravel Assistant",
+    "Assistant OnTravel": "VORA Assistant",
+    "Assistant VORA": "VORA Assistant",
     "Écrivez votre message...": "Write your message...",
     "male": "male",
     "female": "female",
@@ -158,7 +159,7 @@
     "Where do you want to go today?": "Where do you want to go today?",
     "Get 20% Off": "Get 20% Off",
     "Your First Ride": "Your First Ride",
-    "Ride On": "Ride On",
+    "Ride On": "VORA",
     "Recent Searches": "Recent Searches",
     "Enter drop location": "Enter drop location",
     "Enter pickup location": "Enter pickup location",

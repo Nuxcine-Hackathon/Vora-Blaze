@@ -17,7 +17,7 @@
 
 	<!-- ✅ App display name on home screen -->
 	<key>CFBundleDisplayName</key>
-	<string>OnTravel</string>
+	<string>VORA</string>
 
 	<!-- ✅ Executable file -->
 	<key>CFBundleExecutable</key>
@@ -33,7 +33,7 @@
 
 	<!-- ✅ App name -->
 	<key>CFBundleName</key>
-	<string>OnTravel</string>
+	<string>VORA</string>
 
 	<!-- ✅ App type (always APPL for iOS apps) -->
 	<key>CFBundlePackageType</key>
@@ -78,16 +78,16 @@
 
 	<!-- ✅ Permissions (iOS Privacy settings) -->
 	<key>NSCameraUsageDescription</key>
-	<string>OnTravel needs access to your camera to capture and upload pictures of your ID for booking verification or to take photos of items and update your profile.</string>
+	<string>VORA needs access to your camera to capture and upload pictures of your ID for booking verification or to take photos of items and update your profile.</string>
 
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>OnTravel uses your location to find nearby items and deals when you're actively using the app. Additionally, we may update available properties and offers in your vicinity even when the app is running in the background to provide you with the best deals.</string>
+	<string>VORA uses your location to find nearby items and deals when you're actively using the app. Additionally, we may update available properties and offers in your vicinity even when the app is running in the background to provide you with the best deals.</string>
 
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>OnTravel needs access to your location to provide relevant property options and deals while you're using the app.</string>
+	<string>VORA needs access to your location to provide relevant property options and deals while you're using the app.</string>
 
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>OnTravel requires access to your photo library to upload pictures of your ID or other documents for booking verification, or to add profile and property images.</string>
+	<string>VORA requires access to your photo library to upload pictures of your ID or other documents for booking verification, or to add profile and property images.</string>
 
 	<!-- ✅ Allows external keyboards / input -->
 	<key>UIApplicationSupportsIndirectInputEvents</key>

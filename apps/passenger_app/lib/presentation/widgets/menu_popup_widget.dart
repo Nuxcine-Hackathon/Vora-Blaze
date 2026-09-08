@@ -24,7 +24,7 @@ Widget selectWithLocation({BuildContext? context}) {
           },
           child: Row(
             children: [
-              const Icon(Icons.location_on, color: Colors.green, size: 18), // smaller icon
+              const Icon(Icons.location_on, color: BrandColors.success, size: 18), // smaller icon
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -52,7 +52,7 @@ Widget selectWithLocation({BuildContext? context}) {
           },
           child: Row(
             children: [
-              const Icon(Icons.flag_rounded, color: Colors.redAccent, size: 18),
+              const Icon(Icons.flag_rounded, color: BrandColors.sos, size: 18),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -80,7 +80,7 @@ Widget selectWithLocation({BuildContext? context}) {
         ),
         child: Row(mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.location_on_outlined,color:Colors.red,size: 20,),
+              const Icon(Icons.location_on_outlined,color:BrandColors.sos,size: 20,),
                  const SizedBox(width: 4,),
               Padding(
                 padding: const EdgeInsets.only(left: 4,right: 4),

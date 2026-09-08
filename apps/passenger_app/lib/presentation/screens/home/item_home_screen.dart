@@ -195,7 +195,7 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.location_on, color: Colors.redAccent, size: 24),
+            const Icon(Icons.location_on, color: BrandColors.sos, size: 24),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -265,7 +265,7 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: BrandColors.primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -786,7 +786,7 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
         borderRadius: BorderRadius.circular(14),
         border: Border(
           left: BorderSide(
-            color: Colors.green.shade600,
+            color: BrandColors.success,
             width: 4,
           ),
         ),
@@ -806,12 +806,12 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
               Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.15),
+                  color: BrandColors.success.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   Icons.note_alt_outlined,
-                  color: Colors.green,
+                  color: BrandColors.success,
                   size: 18,
                 ),
               ),
@@ -821,7 +821,7 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
                 style: heading3Grey1(context).copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Colors.green.shade800,
+                  color: BrandColors.success,
                 ),
               ),
             ],
@@ -834,7 +834,7 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
             style: regular2(context).copyWith(
               fontSize: 12,
               height: 1.6,
-              color: Colors.green.shade700,
+              color: BrandColors.success,
             ),
           ),
         ],
@@ -934,7 +934,7 @@ class _ItemHomeScreenState extends State<ItemHomeScreen>
                   child: Text(
                     "Clear".translate(context),
                     style: regular2(context).copyWith(
-                      color: Colors.redAccent,
+                      color: BrandColors.sos,
                       fontSize: 11,
                       fontWeight: FontWeight.w500,
                     ),

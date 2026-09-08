@@ -173,7 +173,7 @@ class _ParcelDetailsScreenState extends State<ParcelDetailsScreen> {
                   color: const Color.fromARGB(255, 135, 197, 247)
                       .withValues(alpha: .05),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.blue.withValues(alpha: .2))),
+                  border: Border.all(color: BrandColors.primary.withValues(alpha: .2))),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -181,7 +181,7 @@ class _ParcelDetailsScreenState extends State<ParcelDetailsScreen> {
                       const SizedBox(width: 8),
                       Text("👤 ${"Receiver Details".translate(context)}",
                           style: heading3Grey1(context)
-                              .copyWith(color: Colors.blue))
+                              .copyWith(color: BrandColors.primary))
                     ]),
                     const SizedBox(height: 12),
                     TextFieldAdvance(

@@ -100,7 +100,7 @@ class _TextFieldAdvanceState extends State<TextFieldAdvance> {
             smallHeadingMedium.copyWith(color: notifires.getGrey2whiteColor),
         suffixIcon: isValid
             ? const Icon(Icons.check_circle_outline,
-                color: Colors.green, size: 20)
+                color: BrandColors.success, size: 20)
             : null,
         errorStyle: regular(context).copyWith(color: pC1),
         errorBorder: OutlineInputBorder(

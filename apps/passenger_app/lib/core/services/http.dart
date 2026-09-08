@@ -62,11 +62,13 @@ Future<dynamic> httpPost(path, data, {required BuildContext context}) async {
     }
 
     if (response.statusCode == 419) {
-      showErrorToastMessage("Session expired. Please log in again.");
-      Future.delayed(const Duration(seconds: 1), () {
-        clearData(navigatorKey.currentContext!);
-        goToWithClear(const LoginScreen());
-      });
+      if (token.isNotEmpty) {
+        showErrorToastMessage("Session expired. Please log in again.");
+        Future.delayed(const Duration(seconds: 1), () {
+          clearData(navigatorKey.currentContext!);
+          goToWithClear(const LoginScreen());
+        });
+      }
     }
 
     return responseData;
@@ -125,11 +127,13 @@ Future<dynamic> httpGet(String path, Map<String, dynamic> data,
           json.decode(const Utf8Codec().decode(response.bodyBytes));
 
       if (response.statusCode == 419) {
-        showErrorToastMessage("Session expired. Please log in again.");
-        Future.delayed(const Duration(seconds: 1), () {
-          clearData(navigatorKey.currentContext!);
-          goToWithClear(const LoginScreen());
-        });
+        if (token.isNotEmpty) {
+          showErrorToastMessage("Session expired. Please log in again.");
+          Future.delayed(const Duration(seconds: 1), () {
+            clearData(navigatorKey.currentContext!);
+            goToWithClear(const LoginScreen());
+          });
+        }
       }
     }
   } on TimeoutException {
@@ -174,11 +178,14 @@ Future<String?> generateToken() async {
       box.put("bearerToken", token);
       completer.complete(token);
     } else if (response.statusCode == 419) {
-      showErrorToastMessage("Session expired. Please log in again.");
-      Future.delayed(const Duration(seconds: 1), () {
-        clearData(navigatorKey.currentContext!);
-        goToWithClear(const LoginScreen());
-      });
+      if (token.isNotEmpty) {
+        showErrorToastMessage("Session expired. Please log in again.");
+        Future.delayed(const Duration(seconds: 1), () {
+          clearData(navigatorKey.currentContext!);
+          goToWithClear(const LoginScreen());
+        });
+      }
+      completer.complete(null);
     } else {
       completer.complete(null);
     }

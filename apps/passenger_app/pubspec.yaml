@@ -1,5 +1,5 @@
 name: ride_on
-description: "OnTravel is a smart and reliable mobility app built for daily travel in Cameroon. With trusted drivers, moto and car rides, quick pickups, and 24/7 support, OnTravel makes every journey smooth and stress-free."
+description: "VORA is a smart and reliable mobility app built for daily travel in Cameroon. With trusted drivers, moto and car rides, quick pickups, and 24/7 support, VORA makes every journey smooth and stress-free."
 
 publish_to: 'none' 
 
@@ -23,7 +23,7 @@ dependencies:
   hive_flutter: ^1.1.0
   hive: ^2.2.3
   flutter_svg: ^2.0.17
-  google_fonts: ^6.2.1
+  google_fonts: ^8.0.0
   intl_phone_field: ^3.2.0
   google_maps_flutter: ^2.10.0
   firebase_auth: ^5.5.2
@@ -71,8 +71,8 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/appicons.png"
-  image_path_ios: "assets/images/appicons.png"
+  image_path: "assets/images/vora_logo.png"
+  image_path_ios: "assets/images/vora_logo.png"
 
 
 flutter:

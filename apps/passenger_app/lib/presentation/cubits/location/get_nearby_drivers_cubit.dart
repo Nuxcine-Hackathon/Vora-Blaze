@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../core/extensions/workspace.dart';
 import '../../../core/services/config.dart';
+import '../../../core/utils/theme/project_color.dart';
 import '../general_cubit.dart';
 
 abstract class DriverNearByState extends Equatable {
@@ -469,7 +470,7 @@ class GetPolylineCubit extends Cubit<GetPolylineState> {
         _addPolyLine(
           coordinates: polylineCoordinates,
           id: polylineId,
-          color: isPickupRoute ? Colors.blue : Colors.green,
+          color: isPickupRoute ? BrandColors.primary : BrandColors.success,
         );
 
         emit(GetPolylineUpdated(polylines: _polylines.values.toSet()));

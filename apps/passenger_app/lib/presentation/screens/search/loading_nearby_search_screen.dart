@@ -286,7 +286,7 @@ class _LoadingNearbySearchScreenState extends State<LoadingNearbySearchScreen> {
                       width: 2,
                       color: Colors.grey.shade300,
                     ),
-                    _buildIconCircle(icon: Icons.location_on, color: Colors.redAccent),
+                    _buildIconCircle(icon: Icons.location_on, color: BrandColors.sos),
                   ],
                 ),
                 const SizedBox(width: 14),

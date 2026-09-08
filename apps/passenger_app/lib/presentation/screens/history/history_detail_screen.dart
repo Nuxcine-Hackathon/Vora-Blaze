@@ -526,7 +526,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
               const Spacer(),
               Text(
                 rideData.paymentMethod ?? "",
-                style: heading3Grey1(context).copyWith(color: Colors.green),
+                style: heading3Grey1(context).copyWith(color: BrandColors.success),
               )
             ],
           ),

@@ -27,33 +27,50 @@ class _InitialScreenState extends State<InitialScreen> {
   late Box box;
   dynamic data;
   RideRequest? rideData;
+  Timer? _fallbackTimer;
+  bool _navigated = false;
+  late final bool _isFirstUser;
 
   @override
   void initState() {
     super.initState();
     box = Hive.box('appBox');
     getCurrency(context);
-    _handleNavigation();
+    _isFirstUser = box.get('Firstuser', defaultValue: false) != true;
+    final hasActiveRide = box.get('ride_data') != null;
+    _fallbackTimer = Timer(
+      Duration(seconds: hasActiveRide ? 1 : 12),
+      _leaveSplash,
+    );
   }
 
-  void _handleNavigation() {
-    final bool isFirstUser = box.get('Firstuser', defaultValue: false) != true;
-    final duration = Duration(seconds: isFirstUser ? 4 : 0);
+  @override
+  void dispose() {
+    _fallbackTimer?.cancel();
+    super.dispose();
+  }
 
-    Timer(duration, () {
-      if (isFirstUser) {
-        navigateToScreen(context, () => const Onboardingscreen());
-        return;
-      }
+  void _onGuideFinished() {
+    Future.delayed(const Duration(milliseconds: 400), _leaveSplash);
+  }
 
-      data = box.get('ride_data');
-      if (data == null) {
-        navigateToScreen(context, () => const ItemHomeScreen());
-      } else {
-        final String rideId = data["rideId"] ?? "";
-        context.read<CheckStatusCubit>().checkStatus(rideId);
-      }
-    });
+  void _leaveSplash() {
+    if (_navigated || !mounted) return;
+    _navigated = true;
+    _fallbackTimer?.cancel();
+
+    if (_isFirstUser) {
+      goToWithClear(const Onboardingscreen());
+      return;
+    }
+
+    data = box.get('ride_data');
+    if (data == null) {
+      goToWithClear(const ItemHomeScreen());
+    } else {
+      final String rideId = data["rideId"] ?? "";
+      context.read<CheckStatusCubit>().checkStatus(rideId);
+    }
   }
 
   void _clearRideData() {
@@ -72,7 +89,7 @@ class _InitialScreenState extends State<InitialScreen> {
       backgroundColor: BrandColors.darkBg,
       body: BlocListener<CheckStatusCubit, CheckRideStatusState>(
         listener: _rideStatusListener,
-        child: const SplashScreen(),
+        child: SplashScreen(onGuideFinished: _onGuideFinished),
       ),
     );
   }

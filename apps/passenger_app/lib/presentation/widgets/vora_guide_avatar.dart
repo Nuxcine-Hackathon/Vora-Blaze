@@ -13,6 +13,7 @@ class VoraGuideAvatar extends StatelessWidget {
     this.mood = BrandCompanionMood.welcome,
     this.speakOnAppear = true,
     this.onTap,
+    this.onCompleted,
     this.showMessage = true,
   });
 
@@ -21,6 +22,7 @@ class VoraGuideAvatar extends StatelessWidget {
   final BrandCompanionMood mood;
   final bool speakOnAppear;
   final VoidCallback? onTap;
+  final VoidCallback? onCompleted;
   final bool showMessage;
 
   @override
@@ -34,6 +36,7 @@ class VoraGuideAvatar extends StatelessWidget {
         size: size,
         playOnAppear: speakOnAppear,
         onTap: onTap,
+        onCompleted: onCompleted,
         semanticsLabel: line.spoken,
         mood: mood,
       );

@@ -46,9 +46,9 @@ class VoraGuideScript {
     ),
     VoraGuideScene.login: VoraGuideLine(
       screenLabel: "Connexion",
-      bubble: "Bon retour. Entrez votre numéro.",
+      bubble: "Bon retour. Entre ton numéro.",
       spoken:
-          "Bon retour. Entrez votre numéro. Si vous bloquez, touchez-moi.",
+          "Bon retour. Entre ton numéro. Si tu bloques, touche-moi.",
     ),
     VoraGuideScene.signup: VoraGuideLine(
       screenLabel: "Inscription",
@@ -66,7 +66,7 @@ class VoraGuideScript {
       screenLabel: "Destination",
       bubble: "Un quartier ou un repère suffit.",
       spoken:
-          "Indiquez un quartier ou un repère, par exemple un carrefour connu. Pas besoin d'une adresse exacte.",
+          "Indique un quartier ou un repère, par exemple un carrefour connu. Pas besoin d'une adresse exacte.",
     ),
     VoraGuideScene.estimate: VoraGuideLine(
       screenLabel: "Estimation",
@@ -89,20 +89,20 @@ class VoraGuideScript {
     ),
     VoraGuideScene.history: VoraGuideLine(
       screenLabel: "Historique",
-      bubble: "Vos trajets et reçus sont ici.",
-      spoken: "Retrouvez ici vos trajets, vos reçus et vos évaluations.",
+      bubble: "Tes trajets et reçus sont ici.",
+      spoken: "Retrouve ici tes trajets, tes reçus et tes évaluations.",
     ),
     VoraGuideScene.profile: VoraGuideLine(
       screenLabel: "Profil",
-      bubble: "Vos données restent protégées.",
+      bubble: "Tes données restent protégées.",
       spoken:
-          "Vos informations restent protégées. Je peux vous expliquer chaque réglage.",
+          "Tes informations restent protégées. Je peux t'expliquer chaque réglage.",
     ),
     VoraGuideScene.chat: VoraGuideLine(
       screenLabel: "Assistant",
-      bubble: "Posez-moi une question.",
+      bubble: "Pose-moi une question.",
       spoken:
-          "Je suis Vora. Posez-moi une question sur une course, Mobile Money, la sécurité ou un quartier.",
+          "Je suis VORA. Pose-moi une question sur une course, Mobile Money, la sécurité ou un quartier.",
     ),
   };
 

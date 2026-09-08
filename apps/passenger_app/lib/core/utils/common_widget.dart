@@ -25,7 +25,8 @@ import '../../presentation/screens/Auth/login_screen.dart';
 
 Widget commonlyUserLogo() {
   return Image.asset(
-    'assets/images/appIcon.png',height: 100,
+    'assets/images/vora_logo.png',
+    height: 100,
   );
 }
 
@@ -471,7 +472,7 @@ Future<Uint8List> createCustomMarkerImage(String imageUrl) async {
     profileImage = await completer.future;
   } catch (e) {
     // Fallback: load default asset image
-    final ByteData data = await rootBundle.load('assets/images/appIcon.png');
+    final ByteData data = await rootBundle.load('assets/images/vora_logo.png');
     final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
     final frame = await codec.getNextFrame();
     profileImage = frame.image;
@@ -509,7 +510,7 @@ Future<Uint8List> createCustomMarkerImage(String imageUrl) async {
   canvas.restore();
 
   // Draw pin triangle
-  final Paint pinPaint = Paint()..color = Colors.red;
+  final Paint pinPaint = Paint()..color = BrandColors.sos;
   final Path pinPath = Path()
     ..moveTo(circleRadius - 10, circleSize - 2)
     ..lineTo(circleRadius + 10, circleSize - 2)
@@ -533,7 +534,7 @@ logout(BuildContext context) async {
   await boxs.clear();
 
   box.delete('HomeData');
-  appLocale = const Locale('en');
+  appLocale = const Locale('fr');
   context.read<LanguageCubit>().loadCurrentLanguage();
   bool defaultDarkMode = false;
 
@@ -988,6 +989,21 @@ void goBack() {
   navigatorKey.currentState!.pop();
 }
 
+bool isUserLoggedIn() {
+  return token.isNotEmpty && loginModel?.data != null;
+}
+
+Future<bool> requireAccount(BuildContext context) async {
+  if (isUserLoggedIn()) return true;
+  final result = await Navigator.of(context).push<bool>(
+    MaterialPageRoute(
+      settings: const RouteSettings(name: 'vora-auth'),
+      builder: (_) => const LoginScreen(resumeAfterAuth: true),
+    ),
+  );
+  return result == true || isUserLoggedIn();
+}
+
 int fileSizeThreshold = 1024 * 1024;
 int goodQuality = 85;
 int badQuality = 50;
@@ -1059,7 +1075,7 @@ Widget getErrorImage() {
   return Padding(
     padding: const EdgeInsets.all(10),
     child: Image.asset(
-      "assets/images/appIcon.png",
+      "assets/images/vora_logo.png",
       fit: BoxFit.contain,
     ),
   );

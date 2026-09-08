@@ -7,7 +7,9 @@ import '../../widgets/brand_companion.dart';
 import '../../widgets/vora_guide_avatar.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({super.key, this.onGuideFinished});
+
+  final VoidCallback? onGuideFinished;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -53,16 +55,22 @@ class _SplashScreenState extends State<SplashScreen>
                     curve: Curves.easeInCubic,
                   ),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const VoraGuideAvatar(
-                      scene: VoraGuideScene.splash,
-                      size: 150,
-                      showMessage: false,
+                    Image.asset(
+                      'assets/images/vora_logo.png',
+                      height: 96,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12),
+                    VoraGuideAvatar(
+                      scene: VoraGuideScene.splash,
+                      size: 132,
+                      showMessage: false,
+                      onCompleted: widget.onGuideFinished,
+                    ),
+                    const SizedBox(height: 12),
                     const VoraWordmark(fontSize: 30),
                     const SizedBox(height: 22),
                     const SizedBox(

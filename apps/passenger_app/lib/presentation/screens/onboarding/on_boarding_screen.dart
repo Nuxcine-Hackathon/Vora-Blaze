@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:ride_on/app/route_settings.dart';
 import 'package:ride_on/core/utils/translate.dart';
 import 'package:ride_on/presentation/screens/onboarding/language_select_screen.dart';
+import '../../../core/services/data_store.dart';
 import '../../../core/services/vora_guide_script.dart';
 import '../../../core/utils/common_widget.dart';
 import '../../../core/utils/theme/project_color.dart';
@@ -51,7 +53,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
   Widget build(BuildContext context) {
     notifires = Provider.of<ColorNotifires>(context, listen: true);
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: BrandColors.darkBg,
       body: MultiBlocListener(
           listeners: [
             BlocListener<GoogleLoginCubit, GoogleLoginState>(
@@ -123,6 +125,7 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                             child: VoraGuideAvatar(
                               scene: VoraGuideScene.onboarding,
                               size: 148,
+                              speakOnAppear: false,
                             ),
                           ),
                         ],
@@ -135,17 +138,19 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                       child: Column(
                         children: [
                           Text(
-                            "Reliable Rides. Seamless Journeys.".translate(context),
+                            "Plus qu'une course, un accompagnement.",
                             textAlign: TextAlign.center,
-                            style: largeHeadingMedium.copyWith(fontSize: 28),
+                            style: largeHeadingMedium.copyWith(
+                              fontSize: 28,
+                              color: Colors.white,
+                            ),
                           ),
                           const SizedBox(height: 15),
                           Text(
-                            "Book instantly, track live, and relax with verified drivers. Multiple ride types, one stress-free experience."
-                                .translate(context),
+                            "Réserve en quelques secondes, suis ton chauffeur en direct, et voyage l'esprit libre.",
                             textAlign: TextAlign.center,
                             style: smallHeadingMedium.copyWith(
-                              color: notifires.getGrey2whiteColor,
+                              color: BrandColors.muted,
                               fontSize: 14,
                             ),
                           ),
@@ -160,20 +165,35 @@ class _OnboardingscreenState extends State<Onboardingscreen> {
                       child: Column(
                         children: [
                           CustomsButtons(
-                            textColor: blackColor,
-                            text: "Proceed to Sign-Up",
-                            backgroundColor: themeColor,
+                            textColor: Colors.white,
+                            text: "Explorer VORA",
+                            backgroundColor: BrandColors.primary,
                             onPressed: () {
-                              Navigator.pushReplacement(
+                              box.put('Firstuser', true);
+                              goToWithClear(const ItemHomeScreen());
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const SignUp()),
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUp()),
                               );
                             },
+                            child: Text(
+                              "Créer un compte",
+                              style: heading3Grey1(context).copyWith(
+                                color: BrandColors.primary,
+                                fontSize: 15,
+                              ),
+                            ),
                           ),
                           const SizedBox(height: 25),
                           Text(
-                            "Or continue using".translate(context),
-                            style: regular(context),
+                            "Ou continuer avec",
+                            style: regular(context).copyWith(color: BrandColors.muted),
                           ),
                           const SizedBox(height: 20),
                           Row(

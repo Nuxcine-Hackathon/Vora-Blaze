@@ -12,6 +12,7 @@ class VoraGuideClip extends StatefulWidget {
     required this.size,
     this.playOnAppear = true,
     this.onTap,
+    this.onCompleted,
     this.semanticsLabel,
     this.mood = BrandCompanionMood.welcome,
   });
@@ -20,6 +21,7 @@ class VoraGuideClip extends StatefulWidget {
   final double size;
   final bool playOnAppear;
   final VoidCallback? onTap;
+  final VoidCallback? onCompleted;
   final String? semanticsLabel;
   final BrandCompanionMood mood;
 
@@ -59,6 +61,7 @@ class _VoraGuideClipState extends State<VoraGuideClip> {
       await controller.dispose();
       if (!mounted) return;
       setState(() => _failed = true);
+      widget.onCompleted?.call();
     }
   }
 
@@ -70,6 +73,7 @@ class _VoraGuideClipState extends State<VoraGuideClip> {
         !controller.value.isPlaying;
     if (ended && !_finished && mounted) {
       setState(() => _finished = true);
+      widget.onCompleted?.call();
     }
   }
 

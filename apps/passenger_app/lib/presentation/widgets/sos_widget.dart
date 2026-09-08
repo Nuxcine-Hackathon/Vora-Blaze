@@ -66,7 +66,7 @@ class _SafetyActionsWidgetState extends State<SafetyActionsWidget>
     final lng = hasLiveLocation ? widget.driverLng! : rideState.acceptedDriverLng;
 
     final buffer = StringBuffer()
-      ..writeln("Je suis en course avec OnTravel.")
+      ..writeln("Je suis en course avec VORA.")
       ..writeln("Chauffeur : $driverName${vehicleNumber.isNotEmpty ? ' ($vehicleNumber)' : ''}");
     if (pickup.isNotEmpty) buffer.writeln("Départ : $pickup");
     if (dropoff.isNotEmpty) buffer.writeln("Destination : $dropoff");
@@ -137,7 +137,7 @@ class _SafetyActionsWidgetState extends State<SafetyActionsWidget>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.redAccent.withValues(alpha: .50),
+                      color: BrandColors.sos.withValues(alpha: .50),
                       blurRadius: 25,
                       spreadRadius: 3,
                     ),
@@ -186,7 +186,7 @@ class _SafetyActionsWidgetState extends State<SafetyActionsWidget>
                         height: 200,
                         child: Center(
                           child: CircularProgressIndicator(
-                            color: Colors.redAccent.shade200,
+                            color: BrandColors.sos,
                           ),
                         ),
                       );

@@ -77,6 +77,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   InkWell(
                     onTap: () {
                       Navigator.of(context).pop();
+                      if (!isUserLoggedIn()) {
+                        requireAccount(context);
+                        return;
+                      }
                       goTo(const EditProfile());
                     },
                     child: Column(
@@ -105,7 +109,12 @@ class _MyDrawerState extends State<MyDrawer> {
                             builder: (context, state) {
                           return Row(
                             children: [
-                              Text(context.read<NameCubit>().state,
+                              Text(
+                                  (context.read<NameCubit>().state as String?)
+                                              ?.isNotEmpty ==
+                                          true
+                                      ? context.read<NameCubit>().state
+                                      : "Invité",
                                   style: headingBlack(context)
                                       .copyWith(fontSize: 14)),
                             ],
@@ -137,6 +146,10 @@ class _MyDrawerState extends State<MyDrawer> {
                     title: "History".translate(context),
                     onTap: () {
                       Navigator.of(context).pop();
+                      if (!isUserLoggedIn()) {
+                        requireAccount(context);
+                        return;
+                      }
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -207,7 +220,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: CustomRowItem(
                     imagePath: "assets/images/Assistant.svg",
-                    title: "Assistant OnTravel".translate(context),
+                    title: "Assistant VORA".translate(context),
                     onTap: () {
                       Navigator.of(context).pop();
                       Navigator.push(
@@ -238,8 +251,15 @@ class _MyDrawerState extends State<MyDrawer> {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: CustomRowItem(
                         imagePath: "assets/images/Logout.svg",
-                        title: "Logout".translate(context),
+                        title: isUserLoggedIn()
+                            ? "Logout".translate(context)
+                            : "Se connecter",
                         onTap: () {
+                          if (!isUserLoggedIn()) {
+                            Navigator.of(context).pop();
+                            requireAccount(context);
+                            return;
+                          }
                           showDynamicBottomSheets(context,
                               title: "Logout"
                                   .translate(context)

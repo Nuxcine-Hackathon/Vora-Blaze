@@ -266,7 +266,7 @@ class _UserSearchLocationState extends State<UserSearchLocation> {
               controller: cubit.pickupAddressController,
               focusNode: focusNode1,
               prefixIcon: Icons.radio_button_checked,
-              iconColor: Colors.green.shade700,
+              iconColor: BrandColors.success,
               hint: "Enter pickup location".translate(context),
               onTap: () {
                 setState(() => isPickUp = true);
@@ -302,7 +302,7 @@ class _UserSearchLocationState extends State<UserSearchLocation> {
               controller: cubit.dropOffAddressController,
               focusNode: focusNode2,
               prefixIcon: Icons.location_on_outlined,
-              iconColor: Colors.red.shade600,
+              iconColor: BrandColors.sos,
               hint: "Enter drop location".translate(context),
               onTap: () {
                 setState(() => isPickUp = false);

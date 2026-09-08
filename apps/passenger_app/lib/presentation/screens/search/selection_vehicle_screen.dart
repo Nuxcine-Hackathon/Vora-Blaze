@@ -17,6 +17,7 @@ import '../../cubits/location/get_nearby_drivers_cubit.dart';
 import '../../cubits/realtime/ride_request_cubit.dart';
 import '../../cubits/vehicle_data/get_vehicle_cetgegory_cubit.dart';
 import '../../../core/services/vora_guide_script.dart';
+import '../../../app/route_settings.dart';
 import '../../widgets/vora_guide_button.dart';
 
 class SelectionVehicleScreen extends StatefulWidget {
@@ -270,8 +271,8 @@ class _SelectionVehicleScreenState extends State<SelectionVehicleScreen> {
                               children: [
                                 buildLocationRow(
                                   icon: Icons.circle,
-                                  color: Colors.green,
-                                  bgColor: Colors.green.shade100,
+                                  color: BrandColors.success,
+                                  bgColor: BrandColors.greenSoft,
                                   text: context
                                       .read<BookRideRealTimeDataBaseCubit>()
                                       .state
@@ -281,8 +282,8 @@ class _SelectionVehicleScreenState extends State<SelectionVehicleScreen> {
                                 const SizedBox(height: 10),
                                 buildLocationRow(
                                   icon: Icons.location_on_outlined,
-                                  color: Colors.red,
-                                  bgColor: Colors.red.shade100,
+                                  color: BrandColors.sos,
+                                  bgColor: BrandColors.selectedBg,
                                   text: context
                                       .read<BookRideRealTimeDataBaseCubit>()
                                       .state
@@ -449,23 +450,20 @@ class _SelectionVehicleScreenState extends State<SelectionVehicleScreen> {
                 textColor: blackColor,
                 backgroundColor:
                 isRequestInProgress ? BrandColors.disabledBg : themeColor,
-                onPressed: () {
-
+                onPressed: () async {
                   if (selectedIdIndex == -1) {
                     showErrorToastMessage(
                         "Please select a vehicle type."
                             .translate(context));
                     return;
                   }
+                  final ready = await requireAccount(context);
+                  if (!ready || !mounted) return;
                   context.read<BookRideUserCubit>().removeBookRideState();
                   context.read<DriverNearByCubit>().resetNearByDriverState();
                   context.read<RideRequestCubit>().resetState();
                   box.delete("rideId");
-
-
                   goTo(SendRideRequestScreen(selectedVehicleData: widget.fareList[setIndex], statusOfRide: "",));
-
-
                 },
               ),
             ))

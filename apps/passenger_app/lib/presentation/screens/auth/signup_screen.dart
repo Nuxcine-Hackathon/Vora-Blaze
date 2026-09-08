@@ -14,6 +14,7 @@ import '../../cubits/auth/google_login_cubit.dart';
 import '../../cubits/auth/signup_cubit.dart';
 import '../../cubits/auth/user_authenticate_cubit.dart';
 import '../../../core/services/vora_guide_script.dart';
+import '../../widgets/brand_companion.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/vora_guide_button.dart';
 import '../../widgets/form_validations.dart';
@@ -24,7 +25,9 @@ import 'login_screen.dart';
 import 'otp_screen.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+  const SignUp({super.key, this.resumeAfterAuth = false});
+
+  final bool resumeAfterAuth;
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -60,7 +63,7 @@ class _SignUpState extends State<SignUp> {
     notifires = Provider.of<ColorNotifires>(context, listen: true);
 
     return PopScope(
-      canPop: false,
+      canPop: widget.resumeAfterAuth,
 
       child: Scaffold(
           floatingActionButton: const VoraGuideButton(
@@ -74,7 +77,7 @@ class _SignUpState extends State<SignUp> {
             },
           ):null,
           resizeToAvoidBottomInset: false,
-          backgroundColor: notifires.getbgcolor,
+          backgroundColor: BrandColors.darkBg,
           body: MultiBlocListener(
               listeners: [
                 BlocListener<AuthSignUpCubit, AuthSignUpState>(
@@ -88,6 +91,7 @@ class _SignUpState extends State<SignUp> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
+                            settings: const RouteSettings(name: 'vora-auth'),
                             builder: (context) => OtpScreen(
                                   number: state.loginModel.data!.phone,
                                   countryCode:
@@ -99,6 +103,7 @@ class _SignUpState extends State<SignUp> {
                                   changeMobile: false,
                                   loginWithSocialMedia: false,
                                   routeString: "SignUp",
+                                  resumeAfterAuth: widget.resumeAfterAuth,
                                 )));
                   } else if (state is SignUpFailure) {
                     Widgets.hideLoder(context);
@@ -108,10 +113,14 @@ class _SignUpState extends State<SignUp> {
                 BlocListener<GoogleLoginCubit, GoogleLoginState>(
                   listener: (context, state) {
                     if (state is GoogleLoginSucess) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ItemHomeScreen()));
+                      if (widget.resumeAfterAuth) {
+                        Navigator.of(context).pop(true);
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ItemHomeScreen()));
+                      }
                     } else if (state is AddPhoneNumberState) {
                       Navigator.push(
                           context,
@@ -127,10 +136,14 @@ class _SignUpState extends State<SignUp> {
                 BlocListener<AppleLoginCubit, AppleLoginState>(
                   listener: (context, state) {
                     if (state is AppleLoginSuccess) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ItemHomeScreen()));
+                      if (widget.resumeAfterAuth) {
+                        Navigator.of(context).pop(true);
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ItemHomeScreen()));
+                      }
                     } else if (state is AddPhoneNumberAppleState) {
                       Navigator.push(
                           context,
@@ -165,18 +178,22 @@ class _SignUpState extends State<SignUp> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const SizedBox(height: 130),
+                                  const SizedBox(height: 80),
                                   commonlyUserLogo(),
+                                  const SizedBox(height: 8),
+                                  const VoraWordmark(fontSize: 28, opacity: 0.95),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 16,
                                   ),
-                                  Text("Get Started".translate(context),
-                                      style: heading1(context)),
+                                  Text("Créer ton compte",
+                                      style: heading1(context).copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800,
+                                      )),
                                   Text(
-                                      "Create an account to continue."
-                                          .translate(context),
+                                      "Quelques infos avant de commencer",
                                       style: regular2(context).copyWith(
-                                          color: notifires.getGrey3whiteColor)),
+                                          color: BrandColors.muted)),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -397,9 +414,9 @@ class _SignUpState extends State<SignUp> {
                                               );
                                         }
                                       },
-                                      textColor:blackColor ,
-                                      text: "Sign up",
-                                      backgroundColor: themeColor),
+                                      textColor: Colors.white,
+                                      text: "Créer mon compte",
+                                      backgroundColor: BrandColors.primary),
                                   const SizedBox(
                                     height: 40,
                                   ),
@@ -417,8 +434,10 @@ class _SignUpState extends State<SignUp> {
                                           color: notifires.getGrey4whiteColor),
                                       const SizedBox(width: 10),
                                       Text(
-                                        "or Sign up with".translate(context),
-                                        style: regular3(context),
+                                        "Ou continuer avec",
+                                        style: regular3(context).copyWith(
+                                          color: BrandColors.muted,
+                                        ),
                                       ),
                                       const SizedBox(width: 10),
                                       Container(
@@ -476,11 +495,9 @@ class _SignUpState extends State<SignUp> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Already have an account?"
-                                            .translate(context),
+                                        "Tu as déjà un compte ?",
                                         style: regular3(context).copyWith(
-                                            color:
-                                                notifires.getGrey2whiteColor),
+                                            color: BrandColors.muted),
                                       ),
                                       const SizedBox(width: 5),
                                       InkWell(
@@ -492,7 +509,7 @@ class _SignUpState extends State<SignUp> {
                                                       const LoginScreen()));
                                         },
                                         child: Text(
-                                          "Sign in".translate(context),
+                                          "Se connecter",
                                           style: heading1(context).copyWith(
                                             color: themeColor,
                                             fontSize: 16,

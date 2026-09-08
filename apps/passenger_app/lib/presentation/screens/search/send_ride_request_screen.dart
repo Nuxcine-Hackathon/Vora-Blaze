@@ -1106,7 +1106,7 @@ class _SendRideRequestScreenState extends State<SendRideRequestScreen> {
                       height: 30,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Colors.green.shade100,
+                        color: BrandColors.greenSoft,
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
@@ -1141,7 +1141,7 @@ class _SendRideRequestScreenState extends State<SendRideRequestScreen> {
                       height: 30,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Colors.green.shade100,
+                        color: BrandColors.greenSoft,
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
@@ -1293,16 +1293,16 @@ class _SendRideRequestScreenState extends State<SendRideRequestScreen> {
             children: [
               buildLocationRow(
                 icon: Icons.circle,
-                color: Colors.green,
-                bgColor: Colors.green.shade100,
+                color: BrandColors.success,
+                bgColor: BrandColors.greenSoft,
                 text: stateData.pickupAddress,
                 context: context,
               ),
               const SizedBox(height: 10),
               buildLocationRow(
                 icon: Icons.location_on_outlined,
-                color: Colors.red,
-                bgColor: Colors.red.shade100,
+                color: BrandColors.sos,
+                bgColor: BrandColors.selectedBg,
                 text: stateData.dropoffAddress,
                 context: context,
               ),
@@ -1546,7 +1546,7 @@ void showDriverCancelledRideDialog(BuildContext context) {
         children: [
           const Icon(
             Icons.car_crash,
-            color: Colors.redAccent,
+            color: BrandColors.sos,
             size: 50,
           ),
           const SizedBox(height: 10),
@@ -1586,7 +1586,7 @@ void showDriverCancelledRideDialog(BuildContext context) {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.redAccent,
+              color: BrandColors.sos,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
@@ -1718,7 +1718,7 @@ class _CountdownSegmentedBarState extends State<CountdownSegmentedBar>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline, size: 60, color: Colors.red),
+              const Icon(Icons.error_outline, size: 60, color: BrandColors.sos),
               const SizedBox(height: 16),
               Text(
                 "Driver has not accepted your ride.".translate(context),
@@ -1918,7 +1918,7 @@ class _CountdownSegmentedBarState extends State<CountdownSegmentedBar>
                       minHeight: 8,
                       backgroundColor: Colors.grey[300],
                       valueColor:
-                          const AlwaysStoppedAnimation<Color>(Colors.green),
+                          const AlwaysStoppedAnimation<Color>(BrandColors.success),
                     ),
                   ),
                 ),
@@ -2002,7 +2002,7 @@ class _PulsingCircleState extends State<PulsingCircle>
                     height: 130,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.green,
+                      color: BrandColors.success,
                     ),
                   ),
                 ),
@@ -2015,7 +2015,7 @@ class _PulsingCircleState extends State<PulsingCircle>
             height: 12,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.green.shade700,
+              color: BrandColors.success,
               border: Border.all(color: Colors.white, width: 2),
             ),
           ),

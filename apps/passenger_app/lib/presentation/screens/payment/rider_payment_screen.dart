@@ -361,13 +361,13 @@ void initState() {
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: Colors.green.shade50,
+                      color: BrandColors.greenSoft,
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
                       Icons.my_location,
                       size: 20,
-                      color: Colors.green,
+                      color: BrandColors.success,
                     ),
                   ),
                   Container(
@@ -375,7 +375,7 @@ void initState() {
                     height: 40,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.green.shade200, Colors.red.shade200],
+                        colors: [BrandColors.greenSoft, BrandColors.selectedBg],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),
@@ -384,13 +384,13 @@ void initState() {
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: Colors.red.shade50,
+                      color: BrandColors.selectedBg,
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
                       Icons.flag,
                       size: 20,
-                      color: Colors.red,
+                      color: BrandColors.sos,
                     ),
                   ),
                 ],
@@ -404,7 +404,7 @@ void initState() {
                       "Pickup".translate(context),
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.green.shade600,
+                        color: BrandColors.success,
                         fontWeight: FontWeight.w500,
                         letterSpacing: .5,
                       ),
@@ -419,7 +419,7 @@ void initState() {
                       "Drop".translate(context),
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.red.shade600,
+                        color: BrandColors.sos,
                         fontWeight: FontWeight.w500,
                         letterSpacing: .5,
                       ),

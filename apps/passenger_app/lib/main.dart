@@ -56,7 +56,7 @@ void main() async {
           return BlocBuilder<LanguageCubit, LanguageState>(
               builder: (context, state) {
             if (state is LanguageLoader) {
-              appLocale = Locale(state.language ?? "en");
+              appLocale = Locale(state.language ?? "fr");
             }
             return MaterialApp(
               navigatorKey: navigatorKey,

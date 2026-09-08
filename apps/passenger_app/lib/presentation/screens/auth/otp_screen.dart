@@ -26,6 +26,7 @@ class OtpScreen extends StatefulWidget {
   final String? defaultCountry;
   final String? routeString;
   final bool? loginWithSocialMedia;
+  final bool resumeAfterAuth;
 
   const OtpScreen(
       {super.key,
@@ -37,7 +38,8 @@ class OtpScreen extends StatefulWidget {
       this.changeMobile,
       this.changeEmail,
       this.defaultCountry,
-      this.loginWithSocialMedia});
+      this.loginWithSocialMedia,
+      this.resumeAfterAuth = false});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -64,6 +66,16 @@ class _OtpScreenState extends State<OtpScreen> {
   int _remainingTime = 15;
   bool _isResendEnabled = true;
   Timer? _timer;
+
+  void _finishAuthSuccess() {
+    if (widget.resumeAfterAuth) {
+      navigatorKey.currentState?.popUntil(
+        (route) => route.settings.name != 'vora-auth',
+      );
+    } else {
+      goToWithClear(const ItemHomeScreen());
+    }
+  }
 
   void startResendTimer() {
     if (!mounted) return;
@@ -98,7 +110,7 @@ class _OtpScreenState extends State<OtpScreen> {
       child: SizedBox(
         width: Dimensions.containerWidth,
         child: PopScope(
-          canPop: false,
+          canPop: widget.resumeAfterAuth,
           child: Scaffold(
               bottomSheet: isNumeric==true&& Platform.isIOS?KeyboardDoneButton(
                 onTap: () {
@@ -108,7 +120,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 },
               ):null,
               resizeToAvoidBottomInset: false,
-              backgroundColor: notifires.getbgcolor,
+              backgroundColor: BrandColors.darkBg,
               body: MultiBlocListener(
                   listeners: [
                     BlocListener<AuthUserAuthenticateCubit,
@@ -117,9 +129,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         Widgets.showLoader(context);
                       } else if (state is UserSucesss) {
                         Widgets.hideLoder(context);
-
-
-                        goToWithClear(const ItemHomeScreen());
+                        _finishAuthSuccess();
                       } else if (state is UserFailure) {
                         Widgets.hideLoder(context);
                         if (state.error.isNotEmpty) {
@@ -133,9 +143,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         Widgets.showLoader(context);
                       } else if (state is OtpSuccess) {
                         Widgets.hideLoder(context);
-
-                        goToWithClear(const ItemHomeScreen());
-
+                        _finishAuthSuccess();
                       } else if (state is OtpFailure) {
                         Widgets.hideLoder(context);
                         if (state.error.isNotEmpty) {
@@ -197,30 +205,31 @@ class _OtpScreenState extends State<OtpScreen> {
                                       const SizedBox(
                                         height: 130,
                                       ),
-                                      SizedBox(
-                                        height: 160,
-                                        child: Image.asset(
-                                            "assets/images/verification.png"),
-                                      ),
+                                      commonlyUserLogo(),
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Text("Verification".translate(context),
-                                          style: heading1(context)),
+                                      Text("Vérification",
+                                          style: heading1(context).copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w800,
+                                          )),
                                       const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
-                                          "Verification code was sent to your Phone number"
-                                              .translate(context),
-                                          style: regular(context)),
+                                          "Le code a été envoyé à ton numéro",
+                                          style: regular(context).copyWith(
+                                            color: BrandColors.muted,
+                                          )),
                                       const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
                                           "${widget.countryCode} ${widget.number}",
                                           style: regular3(context).copyWith(
-                                              fontWeight: FontWeight.w100)),
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white)),
 
                                       const SizedBox(height: 20),
                                       TextFormField(
@@ -344,7 +353,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                             Text('00:$_remainingTime',
                                                 style: regular2(context)
                                                     .copyWith(
-                                                  color: blackColor,
+                                                  color: Colors.white,
                                                   fontSize: 16,
                                                 ))
                                           ],
@@ -354,7 +363,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                         height: 30,
                                       ),
                                       CustomsButtons(
-                                          textColor: blackColor,
+                                          textColor: Colors.white,
                                           onPressed: () {
                                             if (_formKey.currentState!
                                                 .validate()) {
@@ -403,8 +412,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                               }
                                             }
                                           },
-                                          text: "Continue",
-                                          backgroundColor: themeColor),
+                                          text: "Vérifier",
+                                          backgroundColor: BrandColors.primary),
                                       const SizedBox(
                                         height: 30,
                                       ),
@@ -415,8 +424,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                           Text(
                                             "Try again".translate(context),
                                             style: regular3(context).copyWith(
-                                                color: notifires
-                                                    .getGrey2whiteColor),
+                                                color: BrandColors.muted),
                                           ),
                                           const SizedBox(
                                             width: 8,

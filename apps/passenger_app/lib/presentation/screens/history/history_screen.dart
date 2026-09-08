@@ -215,7 +215,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                           "${ride.currencyCode} ${ride.amountToPay}",
                                           style: headingBlackBold(context)
                                               .copyWith(
-                                            color: Colors.green.shade700,
+                                            color: BrandColors.success,
                                             fontSize: 16,
                                           ),
                                         ),

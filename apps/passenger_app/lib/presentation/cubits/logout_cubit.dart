@@ -53,7 +53,7 @@ class LogoutCubit extends Cubit<LogoutState> {
       await box.clear();
       clearData(context);
 
-      appLocale = const Locale('en');
+      appLocale = const Locale('fr');
       bool defaultDarkMode = false;
       box.put("getDarkValue", defaultDarkMode);
       box.put("driver_status", false);
@@ -74,7 +74,7 @@ Future<void> clearData(BuildContext context) async {
 
       final box = await Hive.openBox('appBox');
       await box.clear();
-   appLocale = const Locale('en');
+   appLocale = const Locale('fr');
       bool defaultDarkMode = false;
       box.put("getDarkValue", defaultDarkMode);
       box.put("driver_status", false);

@@ -17,12 +17,15 @@ import '../../cubits/auth/user_authenticate_cubit.dart';
 import '../../../core/services/vora_guide_script.dart';
 import '../../widgets/brand_companion.dart';
 import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/vora_guide_button.dart';
 import '../Home/item_home_screen.dart';
 import 'google_update_screen.dart';
 import 'otp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, this.resumeAfterAuth = false});
+
+  final bool resumeAfterAuth;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -38,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
   String selectedCountryCode = "+237";
-  String defaultCountry = "IN";
+  String defaultCountry = "CM";
 
   @override
   void initState() {
@@ -51,9 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     notifires = Provider.of<ColorNotifires>(context, listen: true);
     return PopScope(
-      canPop: false,
+      canPop: widget.resumeAfterAuth,
  
       child: Scaffold(
+          floatingActionButton: const VoraGuideButton(
+            scene: VoraGuideScene.login,
+          ),
           bottomSheet: isNumeric==true&& Platform.isIOS?KeyboardDoneButton(
             onTap: () {
               setState(() {
@@ -62,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
           ):null,
           resizeToAvoidBottomInset: false,
-          backgroundColor: notifires.getbgcolor,
+          backgroundColor: BrandColors.darkBg,
           body: MultiBlocListener(
               listeners: [
                 BlocListener<AuthLoginCubit, AuthLoginState>(
@@ -76,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
+                            settings: const RouteSettings(name: 'vora-auth'),
                             builder: (context) => OtpScreen(
                                   number: textEditingLoginControllerPhoneNumber
                                       .text,
@@ -84,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   defaultCountry: defaultCountry,
                                   routeString: "Login",
                                   otpValue: state.loginModel.data!.resetToken!,
+                                  resumeAfterAuth: widget.resumeAfterAuth,
                                 )));
                   } else if (state is LoginFailure) {
                     Widgets.hideLoder(context);
@@ -93,10 +101,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 BlocListener<GoogleLoginCubit, GoogleLoginState>(
                   listener: (context, state) {
                     if (state is GoogleLoginSucess) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ItemHomeScreen()));
+                      if (widget.resumeAfterAuth) {
+                        Navigator.of(context).pop(true);
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ItemHomeScreen()));
+                      }
                     } else if (state is AddPhoneNumberState) {
                       Navigator.push(
                           context,
@@ -112,10 +124,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 BlocListener<AppleLoginCubit, AppleLoginState>(
                   listener: (context, state) {
                     if (state is AppleLoginSuccess) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ItemHomeScreen()));
+                      if (widget.resumeAfterAuth) {
+                        Navigator.of(context).pop(true);
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ItemHomeScreen()));
+                      }
                     } else if (state is AddPhoneNumberAppleState) {
                       Navigator.push(
                           context,
@@ -151,20 +167,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(height: 72),
-                                  BrandCompanion.fromScene(
-                                    scene: VoraGuideScene.login,
-                                    size: 92,
-                                  ),
-                                  const SizedBox(height: 8),
                                   commonlyUserLogo(),
+                                  const SizedBox(height: 8),
+                                  const VoraWordmark(fontSize: 28, opacity: 0.95),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 16,
                                   ),
-                                  Text("Sign in".translate(context),
-                                      style: heading1(context)),
-                                  Text("Welcome Back".translate(context),
+                                  Text(
+                                      "Bienvenue sur VORA",
+                                      style: heading1(context).copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800,
+                                      )),
+                                  Text(
+                                      "Connecte-toi pour continuer",
                                       style: regular2(context).copyWith(
-                                          color: notifires.getGrey3whiteColor)),
+                                          color: BrandColors.muted)),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -268,9 +286,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .text);
                                         }
                                       },
-                                      textColor: blackColor,
-                                      text: "Sign in",
-                                      backgroundColor: themeColor),
+                                      textColor: Colors.white,
+                                      text: "Recevoir le code",
+                                      backgroundColor: BrandColors.primary),
                                   const SizedBox(
                                     height: 40,
                                   ),
@@ -288,8 +306,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                           color: notifires.getGrey4whiteColor),
                                       const SizedBox(width: 10),
                                       Text(
-                                        "or Sign in with".translate(context),
-                                        style: regular3(context),
+                                        "Ou continuer avec",
+                                        style: regular3(context).copyWith(
+                                          color: BrandColors.muted,
+                                        ),
                                       ),
                                       const SizedBox(width: 10),
                                       Container(
@@ -347,11 +367,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Don't have an account?"
-                                            .translate(context),
+                                        "Pas encore de compte ?",
                                         style: regular3(context).copyWith(
-                                            color:
-                                                notifires.getGrey2whiteColor),
+                                            color: BrandColors.muted),
                                       ),
                                       const SizedBox(width: 5),
                                       InkWell(
@@ -359,11 +377,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
+                                                  settings: const RouteSettings(
+                                                      name: 'vora-auth'),
                                                   builder: (context) =>
-                                                      const SignUp()));
+                                                      SignUp(resumeAfterAuth: widget.resumeAfterAuth)));
                                         },
                                         child: Text(
-                                          "Sign Up".translate(context),
+                                          "Créer un compte",
                                           style:
                                               heading3Grey1(context).copyWith(
                                             color: themeColor,
@@ -386,8 +406,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   left: 10,
                   right: 10,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      if (widget.resumeAfterAuth)
+                        IconButton(
+                          onPressed: () => Navigator.of(context).maybePop(),
+                          icon: const Icon(Icons.arrow_back_ios_new,
+                              color: Colors.white, size: 18),
+                        )
+                      else
+                        const SizedBox(width: 48),
                       languageButton(onTap: (){
 
                         goTo(const SelectLanguageScreen(isBack: true,));
